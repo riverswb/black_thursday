@@ -14,14 +14,13 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_description
-    i = Item.new({:description => "You can use it to write things"
-      })
+    i = Item.new({:description => "You can use it to write things"})
       assert_equal "You can use it to write things", i.description
   end
 
-  def test_item_has_a_unit_price
+  def test_item_has_a_unit_price_formatted_as_a_bigdecimal
     i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
-    assert_equal 10.99, i.unit_price
+    assert_equal BigDecimal, i.unit_price.class
   end
 
   def test_item_has_a_created_at_date
@@ -32,6 +31,16 @@ class ItemTest < Minitest::Test
   def test_item_has_an_updated_at_date
     i = Item.new({:updated_at => Time.now.strftime("%m/%d/%Y")})
     assert_equal Time.now.strftime("%m/%d/%Y"), i.updated_at
+  end
+
+  def test_item_has_a_merchant_id
+    i = Item.new({:merchant_id => 263395237})
+    assert_equal 263395237, i.merchant_id
+  end
+
+  def test_unit_price_to_dollars_returns_price_as_float
+    i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    assert_equal 10.99, i.unit_price_to_dollars
   end
 
 end
