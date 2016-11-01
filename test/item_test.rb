@@ -18,12 +18,12 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_has_a_unit_price_formatted_as_a_bigdecimal
-    i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
+    i = Item.new({:unit_price => 700})
     assert_equal BigDecimal, i.unit_price.class
   end
 
   def test_item_has_a_created_at_date
-    i = Item.new({:created_at => Time.now.strftime("%m/%d/%Y")})
+    i = Item.new({:unit_price => 700})
     assert_equal Time.now.strftime("%m/%d/%Y"), i.created_at
   end
 
@@ -38,8 +38,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_price_as_float
-    i = Item.new({:unit_price => BigDecimal.new(10.99,4)})
-    assert_equal 10.99, i.unit_price_to_dollars
+    i = Item.new({:unit_price => "700"})
+    assert_equal 700, i.unit_price_to_dollars
   end
 
 end

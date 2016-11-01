@@ -11,8 +11,8 @@ class Item
     @id = args[:id]
     @name = args[:name]
     @description = args[:description]
-    @unit_price = args[:unit_price]
-    @created_at = args[:created_at]
+    @unit_price = BigDecimal.new(args.fetch(:unit_price, 0))
+    @created_at = Time.now.strftime("%m/%d/%Y")
     @updated_at = args[:updated_at]
     @merchant_id = args[:merchant_id]
   end
