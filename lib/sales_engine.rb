@@ -1,6 +1,7 @@
 require 'csv'
 require './lib/item_repository'
 require './lib/file_loader'
+require './lib/merchant_repository'
 
 class SalesEngine
   # attr_reader :files
@@ -25,6 +26,10 @@ class SalesEngine
     #   created_at = row[:created_at]
     #   updated_at = row[:updated_at]
     # end
+  end
+
+  def merchants
+    @merchants = MerchantRepository.new(@files[:merchants])
   end
 
   # def merchants
