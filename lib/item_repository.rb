@@ -8,4 +8,17 @@ class ItemRepository
       Item.new(row)
     end
   end
+
+  def all
+    #this just returns everything right now
+    items
+  end
+
+  def find_by_id(id_number)
+    #returns either nil or an instance of Item with a matching ID
+
+    binding.pry
+    items
+
+  end
 end
