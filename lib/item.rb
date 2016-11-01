@@ -8,16 +8,18 @@ class Item
               :updated_at,
               :merchant_id
   def initialize(args)
+    # binding.pry
     @id = args[:id]
     @name = args[:name]
     @description = args[:description]
-    @unit_price = args[:unit_price]
-    @created_at = args[:created_at]
+    @unit_price = BigDecimal.new(args[:unit_price])
+    @created_at = Time.now
     @updated_at = args[:updated_at]
     @merchant_id = args[:merchant_id]
   end
 
   def unit_price_to_dollars
+    # binding.pry
     unit_price.to_f
   end
 end
