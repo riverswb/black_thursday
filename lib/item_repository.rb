@@ -30,12 +30,13 @@ class ItemRepository
 
   def find_by_description(input)
     items.find_all do |item|
-      item.description.include?(input)
+      item.description.downcase.include?(input.downcase)
     end
   end
 
   def find_all_by_price(input)
     items.find_all do |item|
       item.unit_price
+    end
   end
 end
