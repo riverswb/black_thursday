@@ -42,7 +42,18 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_has_method_find_all_with_description
-    # returns either [] or instances of Item where the supplied string appears in the item description (case insensitive)
-    
+    skip # works, but need to figure out output
+    ir = se.items
+    item = ir.find_by_description("Glitter")
+
+    assert_equal [], item
+  end
+
+  def test_item_repo_has_method_find_all_by_price
+
+    ir = se.items
+    item = ir.find_all_by_price("1300")
+
+    assert_equal [], item
   end
 end

@@ -27,4 +27,15 @@ class ItemRepository
       item.name == input
     end
   end
+
+  def find_by_description(input)
+    items.find_all do |item|
+      item.description.include?(input)
+    end
+  end
+
+  def find_all_by_price(input)
+    items.find_all do |item|
+      item.unit_price
+  end
 end
