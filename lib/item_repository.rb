@@ -4,9 +4,28 @@ class ItemRepository
   attr_reader :items
   def initialize(csv_file)
     content = CSV.open csv_file, headers: true, header_converters: :symbol
-    @items = content.map do |row|
-      Item.new(row)
+    parse_file(content)
+    # @items = content.map do |row|
+    #   Item.new(row)
+    # end
+  end
+
+  def parse_file(content)
+    data = []
+    content.each do |row|
+      data << row[:id]
+      data << BigDecimal.new(row[:unit_price].to_i)
+      data << row[:created_at]
+      create_item_object(data)
     end
+  end
+
+  def create_item_object(data)
+    @all_items = []
+    all_items << Item.new({
+    id: data[0]
+
+      })
   end
 
   def all

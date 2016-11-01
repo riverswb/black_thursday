@@ -76,6 +76,12 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal "Glitter scrabble frames", item[0].name
   end
 
+  def test_item_repo_find_all_with_description_returns_empty_array_if_not_found
+    ir = se.items
+    item = ir.find_by_description("Glittersdfsdf")
+    assert_equal [], item
+  end
+
   def test_item_repo_has_method_find_all_by_price
     ir = se.items
     item = ir.find_all_by_price("1300")
