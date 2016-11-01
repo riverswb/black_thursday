@@ -38,8 +38,8 @@ class ItemTest < Minitest::Test
   # end
 
   def test_unit_price_to_dollars_returns_price_as_float
-    i = Item.new({:unit_price => "777000000000000000000"})
-    assert_equal 10.99, i.unit_price_to_dollars
+    i = Item.new({:unit_price => "700"})
+    assert_equal 700, i.unit_price_to_dollars
   end
 
 end

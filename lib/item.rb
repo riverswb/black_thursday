@@ -8,7 +8,6 @@ class Item
               :updated_at,
               :merchant_id
   def initialize(args)
-    # binding.pry
     @id = args[:id]
     @name = args[:name]
     @description = args[:description]
@@ -19,7 +18,6 @@ class Item
   end
 
   def unit_price_to_dollars
-    # binding.pry
     unit_price.to_f
   end
 end
