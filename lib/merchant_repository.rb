@@ -1,6 +1,5 @@
 require_relative "../lib/merchant"
 require "csv"
-require 'pry'
 
 class MerchantRepository
 attr_reader :all

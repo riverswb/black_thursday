@@ -1,6 +1,6 @@
-require './test/test_helper'
-require './lib/merchant_repository'
-require './lib/sales_engine'
+require_relative '../test/test_helper'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :se,

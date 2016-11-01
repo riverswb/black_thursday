@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/item_repository'
-require './lib/file_loader'
-require './lib/merchant_repository'
+require_relative '../lib/item_repository'
+require_relative '../lib/file_loader'
+require_relative '../lib/merchant_repository'
 
 class SalesEngine
   attr_reader :items,
