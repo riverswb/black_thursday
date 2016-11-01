@@ -5,14 +5,14 @@ require 'pry'
 class MerchantRepository
 attr_reader :all
 
-  def initialize(data_path, sales_engine=nil)
+  def initialize(csv_file, sales_engine=nil)
     @all = []
-    csv_loader(data_path)
+    csv_loader(csv_file)
     merchant_parser
   end
 
-  def csv_loader(data_path)
-    @csv = CSV.open data_path, headers:true, header_converters: :symbol
+  def csv_loader(csv_file)
+    @csv = CSV.open csv_file, headers:true, header_converters: :symbol
   end
 
   def merchant_parser
