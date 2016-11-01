@@ -85,13 +85,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_repo_has_method_find_all_by_price
     ir = se.items
     item = ir.find_all_by_price("1300")
-    assert_equal "1300", item[1].unit_price
+    assert_equal 1300, item[1].unit_price
   end
 
   def test_find_all_by_price_in_range
     ir = se.items
     item = ir.find_all_by_price_in_range("1100","1300")
-    assert_equal "1200", item[0].unit_price
+    assert_equal 1200, item[0].unit_price
   end
 
   def test_item_repo_has_method_find_all_by_merchant_id
