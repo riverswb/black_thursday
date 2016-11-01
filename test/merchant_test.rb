@@ -1,7 +1,6 @@
 require './test/test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/merchant'
+
 
 class MerchantTest < Minitest::Test
   def test_merchant_exists_and_has_a_name
@@ -24,4 +23,6 @@ class MerchantTest < Minitest::Test
     merchant = Merchant.new({:updated_at => "2011-12-04"})
     assert_equal "2011-12-04", merchant.updated_at
   end
+
+
 end
