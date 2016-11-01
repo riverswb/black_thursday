@@ -13,6 +13,7 @@ class Item
     @created_at = args[:created_at]
     @updated_at = args[:updated_at]
     @merchant_id = args[:merchant_id]
+    # binding.pry
   end
 
   def unit_price_to_dollars
