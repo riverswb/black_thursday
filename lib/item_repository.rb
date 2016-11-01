@@ -11,14 +11,20 @@ class ItemRepository
 
   def all
     #this just returns everything right now
+    binding.pry
     items
   end
 
   def find_by_id(id_number)
     #returns either nil or an instance of Item with a matching ID
+    items.find do |item|
+      item.id == id_number
+    end
+  end
 
-    binding.pry
-    items
-
+  def find_by_name(input)
+    items.find do |item|
+      item.name == input
+    end
   end
 end
