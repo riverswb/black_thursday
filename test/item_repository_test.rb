@@ -50,9 +50,17 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repo_has_method_find_all_by_price
-
+    skip # this is using Bignum format, probably want to look into using floats
     ir = se.items
     item = ir.find_all_by_price("1300")
+
+    assert_equal [], item
+  end
+
+  def find_all_by_price_in_range
+
+    ir = se.items
+    item = ir.find_all_by_price_in_range("1100","1300")
 
     assert_equal [], item
   end
