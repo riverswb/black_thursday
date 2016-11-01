@@ -27,6 +27,9 @@ class SalesEngine
     # end
   end
 
+  def merchants
+    @merchant = MerchantRepository.new(@files[:merchants])
+  end
   # def merchants
   #   merchants_repository = MerchantsRepository.new
   #   merchants_repository = CSV.read (csv_files[:merchants]), headers: true, header_converters: :symbol

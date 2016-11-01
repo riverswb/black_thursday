@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
 
-class ItemTest < Minitest::Test
+class MerchantTest < Minitest::Test
   def test_merchant_exists_and_has_a_name
     merchant = Merchant.new({:name => "Shopin1901"})
     assert_equal Merchant, merchant.class

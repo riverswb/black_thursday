@@ -11,12 +11,11 @@ class ItemRepository
 
   def all
     #this just returns everything right now
-    binding.pry
+    # binding.pry
     items
   end
 
   def find_by_id(id_number)
-    #returns either nil or an instance of Item with a matching ID
     items.find do |item|
       item.id == id_number
     end
@@ -37,6 +36,18 @@ class ItemRepository
   def find_all_by_price(input)
     items.find_all do |item|
       item.unit_price
+    end
+  end
+
+  def find_all_by_price_in_range(low, high)
+    items.find_all do |item|
+      item.unit_price.between?(low, high)
+    end
+  end
+
+  def find_all_by_merchant_id(input)
+    items.find_all do |item|
+      item.merchant_id == input
     end
   end
 end
