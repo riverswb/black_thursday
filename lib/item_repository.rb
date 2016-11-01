@@ -10,8 +10,6 @@ class ItemRepository
   end
 
   def all
-    #this just returns everything right now
-    # binding.pry
     items
   end
 
@@ -23,7 +21,7 @@ class ItemRepository
 
   def find_by_name(input)
     items.find do |item|
-      item.name == input
+      item.name.downcase == input.downcase
     end
   end
 
