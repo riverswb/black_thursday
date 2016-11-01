@@ -18,6 +18,6 @@ class SalesEngine
   end
 
   def merchants
-    @merchant = MerchantRepository.new(@files[:merchants])
+    @merchants = MerchantRepository.new(@files[:merchants])
   end
 end
