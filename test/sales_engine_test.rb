@@ -1,13 +1,11 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'csv'
+require './test/test_helper'
 require './lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
   def test_sales_engine_reads_from_item_csv_file
     se = SalesEngine.from_csv({:items =>"./data/small/items.csv"})
-    # binding.pry
+
     assert_equal "12334141", se.items.items[0].merchant_id
   end
 
