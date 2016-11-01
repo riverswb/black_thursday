@@ -1,29 +1,26 @@
-require './test/test_helper'
+require 'minitest/autorun'
+require 'minitest/pride'
 require './lib/merchant'
-class MerchantTest < Minitest::Test
 
-  def test_merchant_class_exists
-    m = Merchant.new({:id => 1})
-    assert_equal Merchant, m.class
+class ItemTest < Minitest::Test
+  def test_merchant_exists_and_has_a_name
+    merchant = Merchant.new({:name => "Shopin1901"})
+    assert_equal Merchant, merchant.class
+    assert_equal "Shopin1901", merchant.name
   end
 
-  def test_merchant_has_an_id
-    m = Merchant.new({:id => 1})
-    assert_equal 1, m.id
+  def test_merchant_has_an_id_number
+    merchant = Merchant.new({:id => "12334105"})
+    assert_equal 12334105, merchant.id
   end
 
-  def test_merchant_has_a_name
-    m = Merchant.new({:name => "Brett"})
-    assert_equal "Brett", m.name
+  def test_knows_when_merchant_was_created
+    merchant = Merchant.new({:created_at => "2010-12-10"})
+    assert_equal "2010-12-10", merchant.created_at
   end
 
-  def test_merchant_has_a_created_at_time
-    m = Merchant.new({:created_at => Time.now.strftime("%m/%d/%Y")})
-    assert_equal Time.now.strftime("%m/%d/%Y"), m.created_at
-  end
-
-  def test_merchant_has_an_updated_time
-    m = Merchant.new({:updated_at => Time.now.strftime("%m/%d/%Y")})
-    assert_equal Time.now.strftime("%m/%d/%Y"), m.updated_at
+  def test_knows_when_merchant_was_updated
+    merchant = Merchant.new({:updated_at => "2011-12-04"})
+    assert_equal "2011-12-04", merchant.updated_at
   end
 end

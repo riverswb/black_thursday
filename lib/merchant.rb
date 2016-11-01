@@ -1,14 +1,17 @@
+require "pry"
+require "time"
+
 class Merchant
-
-  attr_reader :id,
-              :name,
+  attr_reader :name,
+              :id,
               :created_at,
-              :updated_at
+              :updated_at,
+              :parent
 
-  def initialize(args)
-    @id = args[:id]
-    @name = args[:name]
-    @created_at = args[:created_at]
-    @updated_at = args[:updated_at]
+  def initialize(merchant_data, parent=nil)
+              @name       = merchant_data[:name].to_s
+              @id         = merchant_data[:id].to_i
+              @created_at = merchant_data[:created_at]
+              @updated_at = merchant_data[:updated_at]
   end
 end
