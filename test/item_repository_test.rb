@@ -11,7 +11,6 @@ class ItemRepositoryTest < Minitest::Test
       :items     => "./data/small/items.csv",
       :merchants => "./data/small/merchants.csv"
     })
-    # @outputs = Outputs.new
   end
 
   def test_item_repository_exists
@@ -21,47 +20,46 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_item_repository_has_method_all
-    skip # returns array of everything
     ir = se.items
-    assert_equal " ", ir.all
+    assert_equal 2, ir.all.count
   end
 
   def test_item_repository_has_method_find_by_id
-    skip #this works, just trying to figure out output
     ir = se.items
     item = ir.find_by_id("263395237")
-    output = outputs.item_repository_find_by_id_output
-    assert_equal output, item
+    assert_equal "263395237", item.id
   end
 
   def test_item_repository_has_method_find_by_name
-    skip # this works but gotta get a better test for output
     ir = se.items
     item = ir.find_by_name("Glitter scrabble frames")
-    assert_equal " ", item
+    assert_equal "Glitter scrabble frames", item.name
   end
 
   def test_item_repo_has_method_find_all_with_description
-    skip # works, but need to figure out output
     ir = se.items
     item = ir.find_by_description("Glitter")
 
-    assert_equal [], item
+    assert_equal "Glitter scrabble frames", item[0].name
   end
 
   def test_item_repo_has_method_find_all_by_price
-    skip # this is using Bignum format, probably want to look into using floats
     ir = se.items
     item = ir.find_all_by_price("1300")
 
-    assert_equal [], item
+    assert_equal "1300", item[1].unit_price
   end
 
-  def find_all_by_price_in_range
-
+  def test_find_all_by_price_in_range
     ir = se.items
     item = ir.find_all_by_price_in_range("1100","1300")
 
-    assert_equal [], item
+    assert_equal "1200", item[0].unit_price
+  end
+
+  def test_item_repo_has_method_find_all_by_merchant_id
+    ir = se.items
+    item = ir.find_all_by_merchant_id("12334185")
+    assert_equal "12334185", item[0].merchant_id
   end
 end
