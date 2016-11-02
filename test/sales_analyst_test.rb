@@ -29,13 +29,14 @@ class SalesAnalystTest < Minitest::Test
   end
 
 
-  # def test_can_calculate_the_mean_items_per_merchant
-  #   sa = SalesAnalyst.new(se)
-  #
-  #   assert_equal 2.5, sa.mean_items_per_merchant
-  # end
+  def test_can_find_the_number_of_items_for_each_merchant
+    sa = SalesAnalyst.new(se)
+
+    assert_equal [], sa.items_per_merchant
+  end
 
   def test_sa_can_calculate_average_items_per_merchant_standard_deviation
+    skip
     sa = SalesAnalyst.new(se)
     assert_equal 0, sa.average_items_per_merchant_standard_deviation
   end
