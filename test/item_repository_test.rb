@@ -4,8 +4,7 @@ require_relative '../lib/sales_engine'
 
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader :se,
-              :outputs
+  attr_reader :se
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/small/items.csv",
@@ -30,19 +29,19 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repository_has_method_find_by_id
     ir = se.items
-    item = ir.find_by_id("263395237")
-    assert_equal "263395237", item.id
+    item = ir.find_by_id(263395237)
+    assert_equal 263395237, item.id
   end
 
   def test_item_repository_find_by_id_returns_instance_of_item
     ir = se.items
-    item = ir.find_by_id("263395237")
+    item = ir.find_by_id(263395237)
     assert_instance_of Item, item
   end
 
   def test_item_repository_find_by_id_returns_nil_if_not_present
     ir = se.items
-    item = ir.find_by_id("2633957")
+    item = ir.find_by_id(2633957)
     assert_nil item
   end
 
@@ -96,7 +95,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_has_method_find_all_by_merchant_id
     ir = se.items
-    item = ir.find_all_by_merchant_id("12334185")
-    assert_equal "12334185", item[0].merchant_id
+    item = ir.find_all_by_merchant_id(12334185)
+    assert_equal 12334185, item[0].merchant_id
   end
 end

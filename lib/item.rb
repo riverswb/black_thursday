@@ -8,13 +8,13 @@ class Item
               :updated_at,
               :merchant_id
   def initialize(args)
-    @id = args[:id]
+    @id = args[:id].to_i
     @name = args[:name]
     @description = args[:description]
     @unit_price = BigDecimal.new(args.fetch(:unit_price, 0))
     @created_at = Time.now.strftime("%m/%d/%Y")
     @updated_at = args[:updated_at]
-    @merchant_id = args[:merchant_id]
+    @merchant_id = args[:merchant_id].to_i
   end
 
   def unit_price_to_dollars
