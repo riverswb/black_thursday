@@ -21,8 +21,8 @@ class SalesAnalyst
 
 
   def items_per_merchant
-    merchants = se.merchants.all
-    merchants.map do |merchant|
+    #group_by might be a better way to do this
+    se.merchants.all.map do |merchant|
       merchants_items.store(merchant.id, se.items.find_all_by_merchant_id(merchant.id))
     end
   end
@@ -36,8 +36,8 @@ class SalesAnalyst
       (num - average) ** 2
     end
     step_2 = step_1.reduce(:+)
-    step_3 = step_2 / se.merchants.all.count - 1
-    @std_deviation = Math.sqrt(step_3)
+    step_3 = step_2 / (se.merchants.all.count - 1)
+    @std_deviation = Math.sqrt(step_3).round(2)
   end
 
   def merchants_with_high_item_count
@@ -48,6 +48,17 @@ class SalesAnalyst
         @high_item_merchants << merchant[0]
       end
     end
+  end
+
+  def average_item_price_for_merchant(merchant_id)
+    merchant = se.merchants.find_by_id(merchant_id)
+    items = se.items.find_all_by_merchant_id(merchant_id)
+    prices = items.map do |item|
+      item.unit_price
+    end
+    average_price = prices.reduce(:+) / prices.count
+    # binding.pry
+
   end
 
 end

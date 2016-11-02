@@ -9,22 +9,27 @@ class ItemRepository
   end
 
   def item_parser(content)
-    content.map do |row|
-      create_item_object(row)
+  @all_items = content.map do |row|
+        Item.new(row)
+      # create_item_object(row)
     end
   end
 
-  def create_item_object(data)
-    @all_items << Item.new({
-    id: data[0],
-    name: data[1],
-    description: data[2],
-    unit_price: data[3],
-    created_at: data[6],
-    updated_at: data [5],
-    merchant_id: data[4]
-    })
+  def inspect
+    "#{self.class}#{@items.size}"
   end
+
+  # def create_item_object(data)
+  #   @all_items << Item.new({
+  #   id: data[0],
+  #   name: data[1],
+  #   description: data[2],
+  #   unit_price: data[3],
+  #   created_at: data[6],
+  #   updated_at: data [5],
+  #   merchant_id: data[4]
+  #   })
+  # end
 
   def all
     @all_items
@@ -42,7 +47,7 @@ class ItemRepository
     end
   end
 
-  def find_by_description(input)
+  def find_all_with_description(input)
     all_items.find_all do |item|
       item.description.downcase.include?(input.downcase)
     end
@@ -50,13 +55,13 @@ class ItemRepository
 
   def find_all_by_price(input)
     all_items.find_all do |item|
-      item.unit_price
+      item.unit_price_to_dollars == input.to_f
     end
   end
 
-  def find_all_by_price_in_range(low, high)
+  def find_all_by_price_in_range(range)
     all_items.find_all do |item|
-      item.unit_price.between?(low.to_i, high.to_i)
+      range.include?(item.unit_price.to_f)
     end
   end
 

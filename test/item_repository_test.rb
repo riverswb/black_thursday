@@ -1,3 +1,4 @@
+require 'bigdecimal'
 require_relative '../test/test_helper'
 require_relative '../lib/item_repository'
 require_relative '../lib/sales_engine'
@@ -71,26 +72,26 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repo_has_method_find_all_with_description
     ir = se.items
-    item = ir.find_by_description("Glitter")
+    item = ir.find_all_with_description("Glitter")
     assert_equal "Glitter scrabble frames", item[0].name
   end
 
   def test_item_repo_find_all_with_description_returns_empty_array_if_not_found
     ir = se.items
-    item = ir.find_by_description("Glittersdfsdf")
+    item = ir.find_all_with_description("Glittersdfsdf")
     assert_equal [], item
   end
 
   def test_item_repo_has_method_find_all_by_price
     ir = se.items
-    item = ir.find_all_by_price("1300")
-    assert_equal 1300, item[1].unit_price
+    item = ir.find_all_by_price(BigDecimal.new(12))
+    assert_equal 1, item.length
   end
 
   def test_find_all_by_price_in_range
     ir = se.items
-    item = ir.find_all_by_price_in_range("1100","1300")
-    assert_equal 1200, item[0].unit_price
+    item = ir.find_all_by_price_in_range(10.00..12.00)
+    assert_equal 1, item.length
   end
 
   def test_item_repo_has_method_find_all_by_merchant_id

@@ -4,6 +4,10 @@ require "csv"
 class MerchantRepository
 attr_reader :all
 
+  def inspect
+    "#{self.class}#{@merchants.size}"
+  end
+
   def initialize(csv_file, sales_engine=nil)
     @all = []
     csv_loader(csv_file)

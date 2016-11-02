@@ -42,7 +42,8 @@ class SalesAnalystTest < Minitest::Test
     })
     sa = SalesAnalyst.new(se)
     sa.items_per_merchant
-    assert_equal 3.0983587827774977, sa.average_items_per_merchant_standard_deviation
+    # 3.26
+    assert_equal 3.26, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -53,5 +54,15 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
     sa.merchants_with_high_item_count
     assert_equal 114, sa.high_item_merchants.count
+  end
+
+  def test_find_the_average_item_price_for_a_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sa = SalesAnalyst.new(se)
+    # merch_id =12334141 price = 1200
+    assert_equal 1200, sa.average_item_price_for_merchant(12334141)
   end
 end
