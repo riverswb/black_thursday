@@ -1,11 +1,15 @@
 class SalesAnalyst
   attr_reader :se,
               :merchants_items,
-              :average
+              :average,
+              :std_deviation,
+              :high_item_merchants
   def initialize(sales_engine)
     @se = sales_engine
     @merchants_items = {}
     @average = average
+    @std_deviation
+    @high_item_merchants = []
   end
 
   def average_items_per_merchant
@@ -33,7 +37,17 @@ class SalesAnalyst
     end
     step_2 = step_1.reduce(:+)
     step_3 = step_2 / se.merchants.all.count - 1
-    step_4 = Math.sqrt(step_3)
+    @std_deviation = Math.sqrt(step_3)
+  end
+
+  def merchants_with_high_item_count
+    items_per_merchant
+    average_items_per_merchant_standard_deviation
+    merchants_items.map do |merchant|
+      if merchant[1].count >  std_deviation
+        @high_item_merchants << merchant[0]
+      end
+    end
   end
 
 end
