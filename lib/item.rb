@@ -7,6 +7,7 @@ class Item
               :created_at,
               :updated_at,
               :merchant_id
+              
   def initialize(args)
     @id = args[:id]
     @name = args[:name]

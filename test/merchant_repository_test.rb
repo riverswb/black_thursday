@@ -1,6 +1,7 @@
 require_relative '../test/test_helper'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
+require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
   attr_reader :se,
@@ -35,10 +36,9 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal "Shopin1901", merchant.name
   end
 
-  def test_finds_all_merchants_case_insensitive_like_brett
+  def test_finds_all_merchants_case_insensitive
     merchant_repository = se.merchants
     merchant = merchant_repository.find_by_name("ShOpIn1901")
     assert_equal "Shopin1901", merchant.name
   end
-
 end

@@ -2,7 +2,9 @@ require_relative "../lib/merchant"
 require "csv"
 
 class MerchantRepository
-attr_reader :all
+attr_reader :all,
+            :name,
+            :id
 
   def initialize(csv_file, sales_engine=nil)
     @all = []
