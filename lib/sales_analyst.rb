@@ -69,7 +69,6 @@ class SalesAnalyst
       item.unit_price
     end
     @merchant_average_price = (prices.reduce(:+) / prices.count).round(2)
-    # merchant_average_price
   end
 
   def average_price_of_items
@@ -100,7 +99,6 @@ class SalesAnalyst
 
   def item_std_deviation
     enumerator = se.items.all.reduce(0) do |sum, num|
-      # binding.pry
       sum += (num.unit_price_to_dollars - average_price_of_items) ** 2
       sum
     end
@@ -110,7 +108,6 @@ class SalesAnalyst
 
   def golden_items
     item_std_deviation
-    #still need std_deviation of items prices
     se.items.all.find_all do |item|
       item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
     end
