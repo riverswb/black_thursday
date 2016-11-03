@@ -11,7 +11,7 @@ class SalesAnalystTest < Minitest::Test
       :merchants => "./data/small/merchants.csv"
     })
   end
-
+  
   def test_sales_analyst_exists
     sa = SalesAnalyst.new(se)
     assert_equal SalesAnalyst, sa.class
@@ -76,18 +76,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 12.5, sa.average_price_of_items
   end
 
-  def test_which_are_our_golden_items
-skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
-    })
-    sa = SalesAnalyst.new(se)
-    golden_items_collection = sa.golden_items
-    assert_instance_of Item, golden_items_collection[0]
-    assert_equal 84, golden_items_collection.count
-  end
-
   def test_average_average_price_per_merchant
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
@@ -97,4 +85,17 @@ skip
     average_average = sa.average_average_price_per_merchant
     assert_equal 350.29, average_average
   end
+
+    def test_which_are_our_golden_items
+
+      se = SalesEngine.from_csv({
+        :items     => "./data/items.csv",
+        :merchants => "./data/merchants.csv"
+      })
+      sa = SalesAnalyst.new(se)
+      golden_items_collection = sa.golden_items
+      assert_instance_of Item, golden_items_collection[0]
+      assert_equal 5, golden_items_collection.count
+    end
+
 end

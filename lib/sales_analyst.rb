@@ -6,7 +6,8 @@ class SalesAnalyst
               :std_deviation,
               :high_item_merchants,
               :merchant_average_price,
-              :average_num_items
+              :average_num_items,
+              :i_std_dev
   def initialize(sales_engine)
     @se = sales_engine
     @merchants_items = {}
@@ -15,6 +16,7 @@ class SalesAnalyst
     @merchant_average_price =merchant_average_price
     @average_num_items = average_num_items
     @high_item_merchants_ids = []
+    @i_std_dev = i_std_dev
   end
 
   def average_items_per_merchant
@@ -96,10 +98,21 @@ class SalesAnalyst
     (avg_prices / se.merchants.all.count).round(2).to_d
   end
 
+  def item_std_deviation
+    enumerator = se.items.all.reduce(0) do |sum, num|
+      # binding.pry
+      sum += (num.unit_price_to_dollars - average_price_of_items) ** 2
+      sum
+    end
+    denominator = se.items.all.count - 1
+    @i_std_dev = Math.sqrt(enumerator / denominator).round(2)
+  end
+
   def golden_items
+    item_std_deviation
     #still need std_deviation of items prices
     se.items.all.find_all do |item|
-      item.unit_price.to_f >  average_price_of_items # + 2 * std_deviation_items
+      item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
     end
   end
 
