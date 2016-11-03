@@ -62,7 +62,31 @@ class SalesAnalystTest < Minitest::Test
       :merchants => "./data/merchants.csv"
     })
     sa = SalesAnalyst.new(se)
-    # merch_id =12334141 price = 1200
-    assert_equal 1200, sa.average_item_price_for_merchant(12334141)
+
+    bigdecimal_price = sa.average_item_price_for_merchant(12334141)
+    assert_equal 12.0, bigdecimal_price.to_f
+    assert_instance_of BigDecimal, bigdecimal_price
+  end
+
+  def test_find_the_average_price_of_items
+    e = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 12.5, sa.average_price_of_items
+  end
+
+  def test_which_are_our_golden_items
+
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+    sa = SalesAnalyst.new(se)
+    golden_items_collection = sa.golden_items
+    assert_instance_of Item, golden_items_collection[0]
+    assert_equal 84, golden_items_collection.count
   end
 end

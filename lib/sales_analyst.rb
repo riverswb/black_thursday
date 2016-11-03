@@ -3,13 +3,15 @@ class SalesAnalyst
               :merchants_items,
               :average,
               :std_deviation,
-              :high_item_merchants
+              :high_item_merchants,
+              :merchant_average_price
   def initialize(sales_engine)
     @se = sales_engine
     @merchants_items = {}
     @average = average
     @std_deviation
     @high_item_merchants = []
+    @merchant_average_price = merchant_average_price
   end
 
   def average_items_per_merchant
@@ -56,9 +58,21 @@ class SalesAnalyst
     prices = items.map do |item|
       item.unit_price
     end
-    average_price = prices.reduce(:+) / prices.count
-    # binding.pry
+    @merchant_average_price = prices.reduce(:+) / prices.count
+  end
 
+  def average_price_of_items
+    prices = se.items.all_items.map do |item|
+      item.unit_price
+    end
+
+    (prices.reduce(:+) / prices.count).to_f
+  end
+
+  def golden_items
+    se.items.all_items.find_all do |item|
+      item.unit_price.to_f > (average_price_of_items * 2)
+    end
   end
 
 end
