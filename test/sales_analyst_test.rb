@@ -16,6 +16,22 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
     assert_equal SalesAnalyst, sa.class
   end
+  #
+  # def test_there_is_a_relationship_layer
+  #   se = SalesEngine.from_csv({
+  #     :items     => "./data/items.csv",
+  #     :merchants => "./data/merchants.csv",
+  #   })
+  #
+  #   merchant = se.merchants.find_by_id(12334141)
+  #   # binding.pry
+  #   # => [<item>, <item>, <item>]
+  #   assert_instance_of Array, merchant.items
+  #   # item = se.items.find_by_id(20)
+  #   # item.merchant
+  #   # => <merchant>
+  #
+  # end
 
   def test_sales_analyst_can_calculate_average_items_per_merchant
     se = SalesEngine.from_csv({
