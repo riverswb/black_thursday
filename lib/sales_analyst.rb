@@ -1,3 +1,5 @@
+require 'bigdecimal'
+require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :se,
               :merchants_items,
@@ -10,7 +12,7 @@ class SalesAnalyst
     @merchants_items = {}
     @std_deviation = std_deviation
     @high_item_merchants = []
-    @merchant_average_price = []
+    @merchant_average_price =merchant_average_price
     @average_num_items = average_num_items
     @high_item_merchants_ids = []
   end
@@ -64,8 +66,8 @@ class SalesAnalyst
     prices = items.map do |item|
       item.unit_price
     end
-    @merchant_average_price << (prices.reduce(:+) / prices.count).round(2)
-    merchant_average_price[0]
+    @merchant_average_price = (prices.reduce(:+) / prices.count).round(2)
+    # merchant_average_price
   end
 
   def average_price_of_items
@@ -75,21 +77,29 @@ class SalesAnalyst
     (prices.reduce(:+) / prices.count).to_f
   end
 
+  def avg_avg_setup(merchant_id)
+    items = se.items.find_all_by_merchant_id(merchant_id)
+    prices = items.map do |item|
+      item.unit_price
+    end
+    merchant_avg_avg = []
+    merchant_avg_avg << (prices.reduce(:+) / prices.count).round(2)
+  end
   def average_average_price_per_merchant
     prices = se.merchants.all.map do |merchant|
-      average_item_price_for_merchant(merchant.id)
+      avg_avg_setup(merchant.id)
     end
-    avg_prices = prices.reduce(0) do |sum,num|
+    avg_prices = prices.flatten.reduce(0) do |sum,num|
       sum += num.to_f
       sum
     end
-    avg_prices / se.merchants.all.count
+    (avg_prices / se.merchants.all.count).round(2).to_d
   end
 
   def golden_items
     #still need std_deviation of items prices
     se.items.all.find_all do |item|
-      item.unit_price.to_f > (average_price_of_items * 2)
+      item.unit_price.to_f >  average_price_of_items # + 2 * std_deviation_items
     end
   end
 

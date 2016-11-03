@@ -12,7 +12,7 @@ class SalesAnalystTest < Minitest::Test
     })
   end
 
-  def test_sales_anallyst_exists
+  def test_sales_analyst_exists
     sa = SalesAnalyst.new(se)
     assert_equal SalesAnalyst, sa.class
   end
@@ -77,7 +77,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_which_are_our_golden_items
-
+skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv"
@@ -96,6 +96,5 @@ class SalesAnalystTest < Minitest::Test
     sa = SalesAnalyst.new(se)
     average_average = sa.average_average_price_per_merchant
     assert_equal 350.29, average_average
-    assert_instance_of BigDecimal, average_average.class
   end
 end
