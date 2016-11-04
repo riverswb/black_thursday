@@ -23,7 +23,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items =>"./data/small/items.csv",
       :merchants => "./data/small/merchants.csv"})
-    assert_equal "12334141", se.items.all_items[0].merchant_id
+    assert_equal 12334141, se.items.all[0].merchant_id
   end
 
   # def test_finds_merchant_by_id
@@ -37,7 +37,7 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({
       :items =>"./data/small/items.csv",
       :merchants => "./data/small/merchants.csv"})
-    assert_equal "Glitter scrabble frames", se.items.all_items[1].name
+    assert_equal "Glitter scrabble frames", se.items.all[1].name
   end
 
   def test_reads_from_merchant_csv_files
