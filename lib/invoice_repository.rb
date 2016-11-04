@@ -9,14 +9,14 @@ attr_reader :all
     @sales_engine = sales_engine
     @all = []
     csv_loader(data_path)
-    invoice_maker
+    invoice_parser
   end
 
   def csv_loader(data_path)
     @csv = CSV.open data_path, headers:true, header_converters: :symbol
   end
 
-  def invoice_maker
+  def invoice_parser
     @all = @csv.map do |row|
       Invoice.new(row, self)
     end

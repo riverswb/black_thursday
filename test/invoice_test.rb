@@ -14,28 +14,28 @@ class InvoiceTest < MiniTest::Test
                              :updated_at   => "#{Time.now}"})
   end
 
-  def test_it_holds_an_id
+  def test_knows_and_stores_id
     assert_equal 6, @invoice.id
   end
 
-  def test_it_holds_customer_id
+  def test_knows_and_stores_customer_id
     assert_equal 7, @invoice.customer_id
   end
 
-  def test_it_holds_merchant_id
+  def test_knows_and_stores_merchant_id
     assert_equal 8, @invoice.merchant_id
 
   end
 
-  def test_it_has_a_status
+  def test_status_exists_and_returns_value
     assert_equal :pending, @invoice.status
   end
 
-  def test_it_holds_a_parsed_created_at
+  def test_knows_and_stores_parsed_created_at
     assert_equal true, @invoice.created_at.is_a?(Time)
   end
 
-  def test_it_holds_a_parsed_updated_at
+  def test_knows_and_stores_parsed_updated_at
     assert_equal true, @invoice.updated_at.is_a?(Time)
   end
 end
