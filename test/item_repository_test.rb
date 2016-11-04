@@ -20,7 +20,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repository_has_method_all
     ir = se.items
-    assert_equal 2, ir.all.count
+    assert_equal 41, ir.all.count
   end
 
   def test_item_repository_has_method_all_returns_array
@@ -85,13 +85,13 @@ class ItemRepositoryTest < Minitest::Test
   def test_item_repo_has_method_find_all_by_price
     ir = se.items
     item = ir.find_all_by_price(BigDecimal.new(12))
-    assert_equal 1, item.length
+    assert_equal 2, item.length
   end
 
   def test_find_all_by_price_in_range
     ir = se.items
     item = ir.find_all_by_price_in_range(10.00..12.00)
-    assert_equal 1, item.length
+    assert_equal 2, item.length
   end
 
   def test_item_repo_has_method_find_all_by_merchant_id

@@ -10,17 +10,12 @@ class ItemRepository
 
   def item_parser(content)
   @all = content.map do |row|
-        Item.new(row)
+        Item.new(row, self)
     end
   end
 
-
   def inspect
     "#{self.class}#{@items.size}"
-  end
-
-  def all
-    @all
   end
 
   def find_by_id(id_number)

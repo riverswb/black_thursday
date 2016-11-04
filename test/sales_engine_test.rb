@@ -40,9 +40,31 @@ class SalesEngineTest < Minitest::Test
     se = SalesEngine.from_csv({:items =>"./data/items.csv",
                                :merchants => "./data/small/merchants.csv"
                                 })
-    merchant = se.merchants.find_by_id(12334105)
+    merchant = se.merchants.find_by_id(12335971)
+    item = se.items.find_by_id(merchant.id)
     binding.pry
+    assert_equal Array, merchant.class
+    assert_equal 1, merchant.items.length
 
-    item = se.items.find_by_id
+      merchant = engine.merchants.find_by_id(id)
+      expected = merchant.items
+  end
+
+  def test_there_is_a_relationship_layer
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+    })
+
+    merchant = se.merchants.find_by_id(12334141)
+    assert_instance_of Array, merchant.items
+    # binding.pry
+    # => [<item>, <item>, <item>]
+    # binding.pry
+    # item = se.items.find_by_id(12334141)
+    # assert instance_of Merchant, item.merchant
+    # => <merchant>
+
   end
 end

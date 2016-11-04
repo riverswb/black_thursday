@@ -23,7 +23,7 @@ class Item
     unit_price.to_f
   end
 
-  def merchant(parent)
+  def merchant
     @parent.find_merchant_by_id(self.merchant_id)
   end
 end
