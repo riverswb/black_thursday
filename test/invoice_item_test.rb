@@ -36,10 +36,19 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_unit_price_returns_the_unit_price
-    assert_equal 10.99, ii.unit_price.to_f
+    assert_equal 10.99, ii.unit_price
   end
 
-  def test_created_at_returns_a_time_instanse_for_the_date_the_invoice_item_was_created
+  def test_created_at_returns_a_time_instanse
     assert_instance_of Time, ii.created_at
+  end
+
+  def test_updated_at_returns_a_time_instance
+    assert_instance_of Time, ii.updated_at
+  end
+
+  def test_unit_price_to_dollars_returns_price_as_a_float
+    assert_equal 10.99, ii.unit_price_to_dollars
+    assert_instance_of Float, ii.unit_price_to_dollars
   end
 end
