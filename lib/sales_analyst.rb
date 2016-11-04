@@ -2,27 +2,16 @@ require 'bigdecimal'
 require 'bigdecimal/util'
 class SalesAnalyst
   attr_reader :se,
-              :merchants_items,
-              :std_deviation,
-              :high_item_merchants,
-              :merchant_average_price,
-              :average_num_items,
-              :i_std_dev
+              :merchants_items
   def initialize(sales_engine)
     @se = sales_engine
     @merchants_items = {}
-    @std_deviation = std_deviation
-    @high_item_merchants = []
-    @merchant_average_price =merchant_average_price
-    @average_num_items = average_num_items
-    @high_item_merchants_ids = []
-    @i_std_dev = i_std_dev
   end
 
   def average_items_per_merchant
       items = se.items.all.count.to_f
       merchants = se.merchants.all.count.to_f
-      @average_num_items = (items / merchants).round(2)
+      (items / merchants).round(2)
   end
 
 
@@ -34,8 +23,8 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    step_1 = std_deviation_denominator / (se.merchants.all.count - 1)
-    @std_deviation = Math.sqrt(step_1).round(2)
+    step_1 = std_deviation_numerator / (se.merchants.all.count - 1)
+    Math.sqrt(step_1).round(2)
   end
 
   def number_items_per_merchant
@@ -45,20 +34,22 @@ class SalesAnalyst
     end
   end
 
-  def std_deviation_denominator
+  def std_deviation_numerator
     number_items_per_merchant.map do |num|
       (num - average_items_per_merchant) ** 2
     end.reduce(:+)
   end
 
   def merchants_with_high_item_count
+    std_deviation = average_items_per_merchant_standard_deviation
+    high_item_merchants_ids = []
     average_items_per_merchant_standard_deviation
-    merchants_items.map do |merchant|
-      if merchant[1].count >  (std_deviation + average_num_items)
-        @high_item_merchants_ids << merchant[0]
+    @merchants_items.find_all do |merchant|
+      if merchant[1].count >  (std_deviation + average_items_per_merchant)
+        high_item_merchants_ids << merchant[0]
       end
     end
-    @high_item_merchants_ids.map do |merchant_id|
+    high_item_merchants_ids.map do |merchant_id|
       se.find_merchant_by_id(merchant_id)
     end
   end
@@ -68,7 +59,7 @@ class SalesAnalyst
     prices = items.map do |item|
       item.unit_price
     end
-    @merchant_average_price = (prices.reduce(:+) / prices.count).round(2)
+    (prices.reduce(:+) / prices.count).round(2)
   end
 
   def average_price_of_items
@@ -86,6 +77,7 @@ class SalesAnalyst
     merchant_avg_avg = []
     merchant_avg_avg << (prices.reduce(:+) / prices.count).round(2)
   end
+
   def average_average_price_per_merchant
     prices = se.merchants.all.map do |merchant|
       avg_avg_setup(merchant.id)
@@ -98,19 +90,21 @@ class SalesAnalyst
   end
 
   def item_std_deviation
-    enumerator = se.items.all.reduce(0) do |sum, num|
+    denominator = se.items.all.count - 1
+    Math.sqrt(item_std_dev_numerator / denominator).round(2)
+  end
+
+  def item_std_dev_numerator
+    se.items.all.reduce(0) do |sum, num|
       sum += (num.unit_price_to_dollars - average_price_of_items) ** 2
       sum
     end
-    denominator = se.items.all.count - 1
-    @i_std_dev = Math.sqrt(enumerator / denominator).round(2)
-  end
 
+  end
   def golden_items
-    item_std_deviation
+    i_std_dev = item_std_deviation
     se.items.all.find_all do |item|
       item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
     end
   end
-
 end
