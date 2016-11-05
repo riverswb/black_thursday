@@ -26,6 +26,15 @@ class TransactionRepositoryTest < Minitest::Test
   def test_find_all_by_invoice_number
     assert_instance_of Array, tr.find_all_by_invoice_id(702)
     assert_equal 2, tr.find_all_by_invoice_id(3477).count
+  end
 
+  def test_find_all_by_credit_card_number
+    assert_instance_of Array, tr.find_all_by_credit_card_number(4279380734327937)
+    assert_equal 1, tr.find_all_by_credit_card_number(4279380734327937).count
+  end
+
+  def test_find_all_by_result
+    assert_instance_of Array, tr.find_all_by_result("success")
+    assert_equal 6, tr.find_all_by_result("failed").count
   end
 end

@@ -8,8 +8,8 @@ class InvoiceItemRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def initialize(csv_file)
-    from_csv(csv_file)
+  def initialize(csv_file = nil)
+    from_csv(csv_file) if !csv_file.nil?
   end
 
   def from_csv(csv_file)
