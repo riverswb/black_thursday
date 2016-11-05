@@ -10,8 +10,8 @@ class InvoiceItem
               :updated_at
 
   def initialize(args)
-    @id = args[:id]
-    @item_id = args[:item_id]
+    @id = args[:id].to_i
+    @item_id = args[:item_id].to_i
     @invoice_id = args[:invoice_id]
     @quantity = args[:quantity]
     @unit_price = args[:unit_price]
