@@ -1,5 +1,6 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
+
 class InvoiceItem
   attr_reader :id,
               :item_id,
@@ -15,8 +16,8 @@ class InvoiceItem
     @invoice_id = args[:invoice_id].to_i
     @quantity = args[:quantity]
     @unit_price = (args[:unit_price].to_f / 100 ).to_d
-    @created_at = Time.parse(args[:created_at]) || Time.now
-    @updated_at = Time.parse(args[:updated_at]) || Time.now
+    @created_at = Time.parse(args[:created_at])
+    @updated_at = Time.parse(args[:updated_at])
   end
 
   def unit_price_to_dollars
