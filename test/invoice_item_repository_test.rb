@@ -26,4 +26,9 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert_equal Array, ir.find_all_by_item_id(263454779).class
     assert_equal 2, ir.find_all_by_item_id(263529264).count
   end
+
+  def test_find_all_by_invoice_id_returns_array_of_matches
+    assert_equal Array, ir.find_all_by_invoice_id(1).class
+    assert_equal 8, ir.find_all_by_invoice_id(1).count
+  end
 end

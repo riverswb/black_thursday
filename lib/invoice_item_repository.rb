@@ -4,6 +4,14 @@ require_relative '../lib/invoice_item'
 class InvoiceItemRepository
   attr_reader :all
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
+  def initialize(csv_file)
+    from_csv(csv_file)
+  end
+
   def from_csv(csv_file)
     content = CSV.open csv_file, headers: true, header_converters: :symbol
     invoice_item_parser(content)
@@ -26,4 +34,11 @@ class InvoiceItemRepository
       item.item_id == item_id
     end
   end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |item|
+      item.invoice_id == invoice_id
+    end
+  end
+
 end

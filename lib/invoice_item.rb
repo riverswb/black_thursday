@@ -12,7 +12,7 @@ class InvoiceItem
   def initialize(args)
     @id = args[:id].to_i
     @item_id = args[:item_id].to_i
-    @invoice_id = args[:invoice_id]
+    @invoice_id = args[:invoice_id].to_i
     @quantity = args[:quantity]
     @unit_price = args[:unit_price]
     @created_at = args[:created_at]

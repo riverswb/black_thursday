@@ -65,6 +65,7 @@ class SalesEngineTest < Minitest::Test
     # item = se.items.find_by_id(12334141)
     # assert instance_of Merchant, item.merchant
     # => <merchant>
-
   end
+
+  def test_sales_engine_can_access_
 end
