@@ -8,7 +8,8 @@ class InvoiceItemRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def initialize(csv_file = nil)
+  def initialize(csv_file = nil, parent = nil)
+    @parent = parent
     from_csv(csv_file) if !csv_file.nil?
   end
 

@@ -65,11 +65,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 350.29, average_average
   end
 
-    def test_which_are_our_golden_items
-      sa = SalesAnalyst.new(se)
-      golden_items_collection = sa.golden_items
-      assert_instance_of Item, golden_items_collection[0]
-      assert_equal 1, golden_items_collection.count
-    end
+  def test_which_are_our_golden_items
+    sa = SalesAnalyst.new(se)
+    golden_items_collection = sa.golden_items
+    assert_instance_of Item, golden_items_collection[0]
+    assert_equal 5, golden_items_collection.count
+  end
 
 end

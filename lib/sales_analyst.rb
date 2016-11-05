@@ -104,7 +104,7 @@ class SalesAnalyst
   def golden_items
     i_std_dev = item_std_deviation
     se.items.all.find_all do |item|
-      item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
+      item.unit_price_to_dollars >  (average_price_of_items  + (2 * i_std_dev))
     end
   end
 end

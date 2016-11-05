@@ -2,13 +2,15 @@ require 'csv'
 require_relative '../lib/customer'
 
 class CustomerRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-  def initialize(csv_file = nil)
+  def initialize(csv_file = nil, parent = nil)
+    @parent = parent
     from_csv(csv_file) if !csv_file.nil?
   end
 
@@ -19,7 +21,7 @@ class CustomerRepository
 
   def customer_parser(content)
     @all = content.map do |row|
-      Customer.new(row)
+      Customer.new(row, self)
     end
   end
 
