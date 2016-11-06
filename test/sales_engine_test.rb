@@ -1,13 +1,17 @@
 require_relative '../test/test_helper'
 require_relative '../lib/sales_engine'
+require_relative '../test/test_helper'
+require 'csv'
 
 class SalesEngineTest < Minitest::Test
   attr_reader :se
+
   def setup
-    @se = SalesEngine.from_csv({:items =>"../data/small/items.csv",
-                               :merchants => "../data/small/merchants.csv"
-                                })
-    end
+    @se = SalesEngine.from_csv({
+      :items =>"../data/small/items.csv",
+      :merchants => "../data/small/merchants.csv"})
+  end
+
 
   def test_sales_engine_reads_from_item_csv_file
     assert_equal 12334141, se.items.all[0].merchant_id
@@ -39,11 +43,12 @@ class SalesEngineTest < Minitest::Test
     merchant.items
     assert_instance_of Item, merchant.items
   end
+
   def test_merchants_and_items_are_linked_by_merchant_id
     skip
-    se = SalesEngine.from_csv({:items =>"../data/items.csv",
-      :merchants => "../data/small/merchants.csv"
-      })
+    @se = SalesEngine.from_csv({
+      :items =>"../data/items.csv",
+      :merchants => "../data/small/merchants.csv"})
       merchant = se.merchants.find_by_id(12335971)
       item = se.items.find_by_id(merchant.id)
       binding.pry

@@ -9,8 +9,7 @@ class ItemRepositoryTest < Minitest::Test
   def setup
     @se = SalesEngine.from_csv({
       :items     => "../data/small/items.csv",
-      :merchants => "../data/small/merchants.csv"
-    })
+      :merchants => "../data/small/merchants.csv"})
   end
 
   def test_item_repository_exists
