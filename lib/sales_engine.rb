@@ -18,8 +18,32 @@ class SalesEngine
     self.new(csv_files)
   end
 
+  def all_invoices
+    invoices.all
+  end
+
+  def find_invoices_by_merchant_id(merchant_id_input)
+    invoices.find_all_by_merchant_id(merchant_id_input)
+  end
+
+  def merchant_count
+    merchants.all.count
+  end
+
+  def all_merchants
+    merchants.all
+  end
+
+  def invoice_count
+    invoices.all.count
+  end
+
   def find_merchant_by_id(merchant_id)
     merchants.find_by_id(merchant_id)
+  end
+
+  def find_all_invoices_by_merchant_id(merchant_id)
+    invoices.find_all_by_merchant_id(merchant_id)
   end
 
   def find_item_by_id(item_id)
@@ -29,6 +53,4 @@ class SalesEngine
   def find_all_items_by_merchant_id(merchant_id)
     merchants.find_by_id(merchant_id)
   end
-
-  
 end

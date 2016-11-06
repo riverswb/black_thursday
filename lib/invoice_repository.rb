@@ -32,6 +32,7 @@ attr_reader :all,
     @se.find_merchant_by_id(merchant_id)
   end
 
+
   def find_by_id(id)
     @all.find do |instance|
       instance.id == id.to_i

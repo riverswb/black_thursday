@@ -8,6 +8,83 @@ class SalesAnalyst
     @merchants_items = {}
   end
 
+  def average_invoices_per_day
+    invoice_count/7.0
+  end
+
+  def standard_deviation_of_invoices_per_day
+    total = number_of_invoices_per_given_day.map do |day, count|
+      (count - average_invoices_per_day)**2
+    end
+    Math.sqrt(total.reduce(:+)/(total.length-1)).round(2)
+  end
+
+  def days_invoices_were_created
+    @se.all_invoices.map do |invoice|
+      invoice.created_at.strftime("%A")
+    end
+  end
+
+  def top_days_by_invoice_count
+    days = number_of_invoices_per_given_day
+    standard_deviation = standard_deviation_of_invoices_per_day
+    average = average_invoices_per_day
+    days.select do |day, count|
+      day if count > (standard_deviation + average)
+    end.keys
+  end
+
+  def number_of_invoices_per_given_day
+    invoices_per_day = Hash.new 0
+    days_invoices_were_created.each do |day|
+      invoices_per_day[day] += 1
+    end
+    invoices_per_day
+  end
+
+  def bottom_merchants_by_invoice_count
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+        all_merchants.find_all do |merchant|
+      merchant_invoice_count(merchant.id) < ((-standard_deviation *2) + average)
+    end
+  end
+
+  def top_merchants_by_invoice_count
+    standard_deviation = average_invoices_per_merchant_standard_deviation
+    average = average_invoices_per_merchant
+    all_merchants.find_all do |merchant|
+      merchant_invoice_count(merchant.id) > ((standard_deviation *2) + average)
+    end
+  end
+
+  def merchant_invoice_count(merchant_id)
+    @se.find_invoices_by_merchant_id(merchant_id).count
+  end
+
+  def average_invoices_per_merchant_standard_deviation
+    total = all_merchants.map do |merchant|
+      ((merchant_invoice_count(merchant.id)) - average_invoices_per_merchant)**2
+    end
+    Math.sqrt(total.reduce(:+)/(total.length-1)).round(2)
+  end
+
+  def all_merchants
+    @se.all_merchants
+  end
+
+  def average_invoices_per_merchant
+    (invoice_count/merchant_count.to_f).round(2)
+  end
+
+  def invoice_count
+    @se.invoice_count
+  end
+
+  def merchant_count
+    @se.merchant_count
+  end
+
   def average_items_per_merchant
       items = se.items.all.count.to_f
       merchants = se.merchants.all.count.to_f

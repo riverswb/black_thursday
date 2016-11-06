@@ -3,6 +3,8 @@ require_relative '../lib/sales_engine'
 require "csv"
 
 class MerchantRepository
+  attr_reader :invoices,
+              :se
 
   def inspect
     "#{self.class} #{@merchants.size}"
@@ -51,7 +53,7 @@ class MerchantRepository
     @parent.find_all_items_by_merchant_id(merchant_id)
   end
 
-  def invoices
-    @se.invoices.find_all_by_merchant_id(merchant_id)
+  def find_all_invoices_by_merchant_id(merchant_id)
+    @parent.find_all_invoices_by_merchant_id(merchant_id)
   end
 end
