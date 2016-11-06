@@ -1,24 +1,11 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
-require 'sales_engine'
 class SalesAnalyst
-  attr_reader :se
-
+  attr_reader :se,
+              :merchants_items
   def initialize(sales_engine)
     @se = sales_engine
     @merchants_items = {}
-  end
-
-  def average_invoices_per_merchant
-    (invoice_count/merchant_count.to_f).round(2)
-  end
-
-  def invoice_count
-    @se.invoice_count
-  end
-
-  def merchant_count
-    @se.merchant_count
   end
 
   def average_items_per_merchant
@@ -112,12 +99,12 @@ class SalesAnalyst
       sum += (num.unit_price_to_dollars - average_price_of_items) ** 2
       sum
     end
-  end
 
+  end
   def golden_items
     i_std_dev = item_std_deviation
     se.items.all.find_all do |item|
-      item.unit_price_to_dollars >  (average_price_of_items  + (2 * i_std_dev))
+      item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
     end
   end
 end

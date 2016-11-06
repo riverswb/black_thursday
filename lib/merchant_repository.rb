@@ -1,23 +1,22 @@
 require_relative "../lib/merchant"
-require_relative '../lib/invoice'
-require_relative 'sales_engine'
+require_relative '../lib/sales_engine'
 require "csv"
 
 class MerchantRepository
-attr_reader :all,
-            :se
-
-attr_accessor :invoices
 
   def inspect
     "#{self.class} #{@merchants.size}"
   end
 
   def initialize(csv_file, parent = nil)
-    @all = []
+    @merchants = []
     @parent = parent
     csv_loader(csv_file)
     merchant_parser
+  end
+
+  def all
+    @merchants
   end
 
   def csv_loader(csv_file)
@@ -25,25 +24,25 @@ attr_accessor :invoices
   end
 
   def merchant_parser
-    @all = @csv.map do |row|
+    @merchants = @csv.map do |row|
       Merchant.new(row, self)
     end
   end
 
   def find_by_id(id_input)
-    @all.find do |instance|
-      instance.id == id_input
+    @merchants.find do |instance|
+      instance.id == id_input.to_i
     end
   end
 
   def find_by_name(name_input)
-    @all.find do |instance|
+    @merchants.find do |instance|
       instance.name.downcase == name_input.to_s.downcase
     end
   end
 
   def find_all_by_name(name_fragment)
-    @all.find_all do |instance|
+    @merchants.find_all do |instance|
       instance.name.downcase.include?(name_fragment.to_s.downcase)
     end
   end
@@ -52,7 +51,7 @@ attr_accessor :invoices
     @parent.find_all_items_by_merchant_id(merchant_id)
   end
 
-  def find_invoices_by_merchant_id(merchant_id)
-    @se.find_invoices_by_merchant_id(merchant_id)
+  def invoices
+    @se.invoices.find_all_by_merchant_id(merchant_id)
   end
 end

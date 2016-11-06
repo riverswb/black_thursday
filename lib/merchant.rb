@@ -1,14 +1,12 @@
-require "time"
-require 'pry'
+require_relative '../lib/merchant_repository'
+
 class Merchant
   attr_reader   :name,
                 :id,
                 :created_at,
                 :updated_at,
-                :parent,
-                :items,
-                :invoices
-
+                :parent
+  attr_accessor :items
   def initialize(merchant_data, parent=nil)
     @name       = merchant_data[:name].to_s
     @id         = merchant_data[:id].to_i
@@ -21,10 +19,4 @@ class Merchant
   def items
     @items << @parent.find_all_items_by_merchant_id(self.id)
   end
-
-  def invoices
-    @parent.find_invoices_by_merchant_id(self.id)
-  end
-
-
 end

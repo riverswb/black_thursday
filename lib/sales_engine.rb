@@ -1,22 +1,20 @@
+require 'csv'
 require_relative '../lib/item_repository'
 require_relative '../lib/file_loader'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_repository'
-require 'csv'
-
 
 class SalesEngine
   attr_reader :items,
               :merchants,
               :invoices
-
-  def initialize(csv_files = nil)
+  def initialize(csv_files)
     @items = ItemRepository.new(csv_files[:items], self)
     @merchants = MerchantRepository.new(csv_files[:merchants], self)
     @invoices = InvoiceRepository.new(csv_files[:invoices], self)
   end
 
-  def self.from_csv(csv_files = nil)
+  def self.from_csv(csv_files)
     self.new(csv_files)
   end
 
@@ -32,15 +30,5 @@ class SalesEngine
     merchants.find_by_id(merchant_id)
   end
 
-  def find_invoices_by_merchant_id(merchant_id)
-    invoices.find_all_by_merchant_id(merchant_id)
-  end
-
-  def invoice_count
-    invoices.all.count
-  end
-
-  def merchant_count
-    merchants.all.count
-  end
+  
 end

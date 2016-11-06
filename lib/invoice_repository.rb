@@ -1,14 +1,14 @@
 require_relative "../lib/invoice"
-require_relative '../lib/merchant'
 require_relative '../lib/sales_engine'
 require "csv"
 require 'pry'
 
 class InvoiceRepository
-attr_reader :all
+attr_reader :all,
+            :se
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#{self.class} #{@invoices.size}"
   end
 
   def initialize(data_path, sales_engine=nil)
@@ -28,15 +28,19 @@ attr_reader :all
     end
   end
 
-  def find_by_id(invoice_id)
+  def find_merchant_by_id(merchant_id)
+    @se.find_merchant_by_id(merchant_id)
+  end
+
+  def find_by_id(id)
     @all.find do |instance|
-      instance.id == invoice_id.to_i
+      instance.id == id.to_i
     end
   end
 
-  def find_all_by_customer_id(customer_id)
+  def find_all_by_customer_id(customer_id_input)
     @all.find_all do |instance|
-      instance.customer_id == customer_id
+      instance.customer_id == customer_id_input
     end
   end
 
@@ -50,10 +54,6 @@ attr_reader :all
     @all.find_all do |instance|
       instance.status == status_input
     end
-  end
-
-  def find_merchant_by_id(merchant_id_input)
-    @se.find_merchant_by_id(merchant_id_input)
   end
 
   def find_items_by_invoice_id(invoice_id_input)
