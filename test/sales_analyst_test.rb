@@ -60,5 +60,4 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, golden_items_collection[0]
     assert_equal 1, golden_items_collection.count
   end
-
 end
