@@ -2,12 +2,15 @@ require_relative "../lib/merchant"
 require "csv"
 
 class MerchantRepository
-attr_reader :all,
-            :name,
-            :id
+attr_reader :all
 
-  def initialize(csv_file, sales_engine=nil)
+  def inspect
+    "#{self.class} #{@merchants.size}"
+  end
+
+  def initialize(csv_file, parent = nil)
     @all = []
+    @parent = parent
     csv_loader(csv_file)
     merchant_parser
   end
@@ -39,4 +42,9 @@ attr_reader :all,
       instance.name.downcase.include?(name_fragment.to_s.downcase)
     end
   end
+
+  def find_all_items_by_merchant_id(merchant_id)
+    @parent.find_all_items_by_merchant_id(merchant_id)
+  end
+
 end

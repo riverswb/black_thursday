@@ -8,22 +8,19 @@ class Item
               :updated_at,
               :merchant_id,
               :parent
-
   def initialize(args, parent = nil)
     @id = args[:id].to_i
     @name = args[:name]
     @description = args[:description]
     @unit_price = BigDecimal.new(args.fetch(:unit_price, 0)) / 100
-    @created_at = Time.now.strftime("%m/%d/%Y")#for test files
-    # @created_at = Time.parse(args[:created_at]) #this is for spec harness
-    @updated_at = args[:updated_at] #for test files
-    # @updated_at = Time.parse(args[:updated_at]) #this is for spec harness
+    @created_at = Time.parse(args[:created_at])
+    @updated_at = Time.parse(args[:updated_at])
     @merchant_id = args[:merchant_id].to_i
     @parent = parent
   end
 
   def unit_price_to_dollars
-    unit_price.to_f
+    unit_price.to_f * 100
   end
 
   def merchant
