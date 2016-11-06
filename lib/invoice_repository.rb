@@ -1,4 +1,5 @@
 require_relative "../lib/invoice"
+require_relative '../lib/merchant'
 require "csv"
 require 'pry'
 
@@ -32,13 +33,13 @@ attr_reader :all
     end
   end
 
-  def find_all_by_customer_id(customer_id_input)
+  def find_all_by_customer_id(customer_id)
     @all.find_all do |instance|
       instance.customer_id == customer_id_input
     end
   end
 
-  def find_all_by_merchant_id(merchant_id_input)
+  def find_all_by_merchant_id(merchant_id)
     @all.find_all do |instance|
       instance.merchant_id == merchant_id_input
     end

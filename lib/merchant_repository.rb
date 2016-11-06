@@ -1,4 +1,6 @@
 require_relative "../lib/merchant"
+require_relative '../lib/invoice'
+require_relative 'sales_engine'
 require "csv"
 
 class MerchantRepository
@@ -47,4 +49,7 @@ attr_reader :all
     @parent.find_all_items_by_merchant_id(merchant_id)
   end
 
+  def find_invoices_by_merchant_id(merchant_id)
+    @sales_engine.find_invoices_by_merchant_id(merchant_id)
+  end
 end
