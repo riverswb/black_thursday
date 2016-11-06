@@ -17,6 +17,7 @@ class Item
     @created_at = Time.parse(args[:created_at])
     @updated_at = Time.parse(args[:updated_at])
     @merchant_id = args[:merchant_id].to_i
+    @parent = parent
   end
 
   def unit_price_to_dollars
