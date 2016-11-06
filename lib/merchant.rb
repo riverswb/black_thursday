@@ -5,8 +5,9 @@ class Merchant
                 :id,
                 :created_at,
                 :updated_at,
-                :parent
-  attr_accessor :items
+                :parent,
+                :items
+
   def initialize(merchant_data, parent=nil)
     @name       = merchant_data[:name].to_s
     @id         = merchant_data[:id].to_i
