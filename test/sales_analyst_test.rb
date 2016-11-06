@@ -1,10 +1,8 @@
 require_relative '../test/test_helper.rb'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
-require 'pry'
 
 class SalesAnalystTest < Minitest::Test
-
   attr_reader :se
   def setup
     @se = SalesEngine.from_csv({
@@ -50,8 +48,16 @@ class SalesAnalystTest < Minitest::Test
 
   def test_find_the_average_price_of_items
     sa = SalesAnalyst.new(se)
-
     assert_equal 174.44, sa.average_price_of_items.round(2)
+  end
+
+  def test_average_average_price_per_merchant
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv"})
+    sa = SalesAnalyst.new(se)
+    average_average = sa.average_average_price_per_merchant
+    assert_equal 350.29, average_average
   end
 
   def test_which_are_our_golden_items

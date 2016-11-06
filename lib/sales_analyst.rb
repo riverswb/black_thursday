@@ -99,8 +99,9 @@ class SalesAnalyst
   end
 
   def items_per_merchant
+    #group_by might be a better way to do this
     se.merchants.all.map do |merchant|
-      merchants_items.store(merchant.id, se.items.find_all_by_merchant_id(merchant.id))
+      @merchants_items.store(merchant.id, se.items.find_all_by_merchant_id(merchant.id))
     end
   end
 
@@ -110,6 +111,7 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
+    # think this could be done using count enumerable
     items_per_merchant.map do |merchant|
       merchant.count
     end

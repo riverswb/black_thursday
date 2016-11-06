@@ -8,7 +8,6 @@ class Item
               :updated_at,
               :merchant_id,
               :parent
-              
   def initialize(args, parent = nil)
     @id = args[:id].to_i
     @name = args[:name]

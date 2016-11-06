@@ -3,7 +3,6 @@ require_relative '../lib/item'
 class ItemRepository
   attr_reader :all,
               :parent
-
   def initialize(csv_file, parent = nil)
     @parent = parent
     content = CSV.open csv_file, headers: true, header_converters: :symbol
