@@ -8,7 +8,7 @@ class Item
               :updated_at,
               :merchant_id,
               :parent
-              
+
   def initialize(args, parent = nil)
     @id = args[:id].to_i
     @name = args[:name]
@@ -17,7 +17,6 @@ class Item
     @created_at = Time.parse(args[:created_at])
     @updated_at = Time.parse(args[:updated_at])
     @merchant_id = args[:merchant_id].to_i
-    @parent = parent
   end
 
   def unit_price_to_dollars
@@ -25,6 +24,6 @@ class Item
   end
 
   def merchant
-    @parent.find_merchant_by_id(self.merchant_id)
+    parent.find_merchant_by_id(self.merchant_id)
   end
 end

@@ -13,7 +13,6 @@ class Merchant
     @id         = merchant_data[:id].to_i
     @created_at = merchant_data[:created_at]
     @updated_at = merchant_data[:updated_at]
-    @parent = parent
     @items = []
   end
 
@@ -22,6 +21,6 @@ class Merchant
   end
 
   def invoices
-    @parent.find_all_invoices_by_merchant_id(id)
+    parent.find_all_invoices_by_merchant_id(id)
   end
 end

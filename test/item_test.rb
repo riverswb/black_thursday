@@ -10,8 +10,7 @@ class ItemTest < Minitest::Test
       :unit_price  => BigDecimal.new(10.99,4),
       :created_at  => "2016-01-11 09:34:06 UTC",
       :updated_at  => "2007-06-04 21:35:10 UTC",
-      :merchant_id => 263395237
-    })
+      :merchant_id => 263395237})
   end
 
   def test_item_exists
@@ -43,7 +42,6 @@ class ItemTest < Minitest::Test
   end
 
   def test_unit_price_to_dollars_returns_price_as_float
-    assert_equal 10.99, i.unit_price_to_dollars
+    assert_equal 0.1099, i.unit_price_to_dollars
   end
-
 end
