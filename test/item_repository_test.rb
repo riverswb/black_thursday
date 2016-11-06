@@ -6,7 +6,7 @@ require_relative '../lib/sales_engine'
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repository
   def setup
-    @item_repository = ItemRepository.new("../data/small/items.csv")
+    @item_repository = ItemRepository.new("./data/small/items.csv")
   end
 
   def test_item_repository_exists

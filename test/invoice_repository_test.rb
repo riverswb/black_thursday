@@ -6,10 +6,8 @@ require 'csv'
 
 class InvoiceRepositoryTest < MiniTest::Test
   attr_reader :invoice_repository
-
-
   def setup
-    @invoice_repository = InvoiceRepository.new("../data/small/invoices.csv")
+    @invoice_repository = InvoiceRepository.new("./data/small/invoices.csv")
   end
 
   def test_invoice_parser
