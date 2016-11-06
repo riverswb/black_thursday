@@ -1,6 +1,6 @@
 require_relative '../test/test_helper'
 require_relative "../lib/invoice_repository"
-require_relative "../lib/sales_engine"
+# require_relative "../lib/sales_engine"
 require 'csv'
 
 
@@ -9,7 +9,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
 
   def setup
-    @invoice_repository = InvoiceRepository.new("./data/small/invoices.csv")
+    @invoice_repository = InvoiceRepository.new("../data/small/invoices.csv")
   end
 
   def test_invoice_parser
