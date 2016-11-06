@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative '../test/test_helper'
 require_relative "../lib/invoice_repository"
 require_relative "../lib/sales_engine"
 require 'csv'
@@ -9,7 +9,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
 
   def setup
-    @invoice_repository = InvoiceRepository.new("./data/invoices.csv")
+    @invoice_repository = InvoiceRepository.new("../data/small/invoices.csv")
   end
 
   def test_invoice_parser
@@ -19,7 +19,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_returns_all_instances_invoices
     assert_equal 1, invoice_repository.all.first.id
-    assert_equal 4985, invoice_repository.all.last.id
+    assert_equal 30, invoice_repository.all.last.id
   end
 
   def test_finds_invoice_by_id
@@ -39,7 +39,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_it_finds_all_by_merchant_id
-    assert_equal 12, invoice_repository.find_all_by_merchant_id(12335955).length
+    assert_equal 2, invoice_repository.find_all_by_merchant_id(12335955).length
   end
 
   def test_returns_empty_array_if_no_merchant_id_matches
@@ -47,7 +47,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   end
 
   def test_finds_all_by_status
-    assert_equal 1473, invoice_repository.find_all_by_status(:pending).length
+    assert_equal 11, invoice_repository.find_all_by_status(:pending).length
   end
 
   def test_returns_empty_array_status_is_not_matched

@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative '../test/test_helper'
 require_relative "../lib/invoice"
 require_relative "../lib/sales_engine"
 require 'pry'

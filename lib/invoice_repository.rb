@@ -5,6 +5,10 @@ require 'pry'
 class InvoiceRepository
 attr_reader :all
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def initialize(data_path, sales_engine=nil)
     @sales_engine = sales_engine
     @all = []
