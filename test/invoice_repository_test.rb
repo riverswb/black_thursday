@@ -9,7 +9,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
 
   def setup
-    @invoice_repository = InvoiceRepository.new("../data/small/invoices.csv")
+    @invoice_repository = InvoiceRepository.new("./data/small/invoices.csv")
   end
 
   def test_invoice_parser

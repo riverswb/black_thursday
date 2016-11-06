@@ -35,4 +35,12 @@ class SalesEngine
   def find_invoices_by_merchant_id(merchant_id)
     invoices.find_all_by_merchant_id(merchant_id)
   end
+
+  def invoice_count
+    invoices.all.count
+  end
+
+  def merchant_count
+    merchants.all.count
+  end
 end

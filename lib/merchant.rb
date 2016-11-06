@@ -1,5 +1,5 @@
 require "time"
-
+require 'pry'
 class Merchant
   attr_reader   :name,
                 :id,
@@ -16,14 +16,15 @@ class Merchant
     @updated_at = merchant_data[:updated_at]
     @parent = parent
     @items = []
-    @invoices = []
   end
 
   def items
     @items << @parent.find_all_items_by_merchant_id(self.id)
   end
 
-
+  def invoices
+    @parent.find_invoices_by_merchant_id(self.id)
+  end
 
 
 end

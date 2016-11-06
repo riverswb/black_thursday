@@ -4,7 +4,10 @@ require_relative 'sales_engine'
 require "csv"
 
 class MerchantRepository
-attr_reader :all
+attr_reader :all,
+            :se
+
+attr_accessor :invoices
 
   def inspect
     "#{self.class} #{@merchants.size}"
@@ -29,7 +32,7 @@ attr_reader :all
 
   def find_by_id(id_input)
     @all.find do |instance|
-      instance.id == id_input.to_i
+      instance.id == id_input
     end
   end
 
@@ -50,6 +53,6 @@ attr_reader :all
   end
 
   def find_invoices_by_merchant_id(merchant_id)
-    @sales_engine.find_invoices_by_merchant_id(merchant_id)
+    @se.find_invoices_by_merchant_id(merchant_id)
   end
 end
