@@ -1,4 +1,4 @@
-require "time"
+require_relative '../lib/merchant_repository'
 
 class Merchant
   attr_reader   :name,
@@ -18,5 +18,9 @@ class Merchant
 
   def items
     @items << @parent.find_all_items_by_merchant_id(self.id)
+  end
+
+  def invoices
+    @parent.find_all_invoices_by_merchant_id(id)
   end
 end

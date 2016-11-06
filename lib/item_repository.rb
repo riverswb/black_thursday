@@ -1,7 +1,8 @@
 require_relative '../lib/item'
 
 class ItemRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
   def initialize(csv_file, parent = nil)
     @parent = parent
     content = CSV.open csv_file, headers: true, header_converters: :symbol
@@ -9,8 +10,8 @@ class ItemRepository
   end
 
   def item_parser(content)
-  @all = content.map do |row|
-        Item.new(row, self)
+    @all = content.map do |row|
+      Item.new(row, self)
     end
   end
 
@@ -55,6 +56,6 @@ class ItemRepository
   end
 
   def find_merchant_by_id(merchant_id)
-    @parent.find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 end
