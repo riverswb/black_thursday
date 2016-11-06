@@ -18,14 +18,13 @@ class Invoice
     @status      = invoice_data[:status].to_sym
     @created_at  = Time.parse(invoice_data[:created_at])
     @updated_at  = Time.parse(invoice_data[:updated_at])
-    @parent      = parent
   end
 
   def merchant
-    @parent.find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 
   def items
-    @parent.find_items_by_invoice_id(id)
+    parent.find_items_by_invoice_id(id)
   end
 end
