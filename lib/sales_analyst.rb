@@ -8,6 +8,13 @@ class SalesAnalyst
     @merchants_items = {}
   end
 
+  def invoice_status(status_input)
+    count = @se.all_invoices.find_all do |invoice|
+      invoice.status == status_input
+    end
+    ((count.length.to_f/invoice_count)*100).round(2)
+  end
+
   def average_invoices_per_day
     invoice_count/7.0
   end
