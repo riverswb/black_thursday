@@ -5,7 +5,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   attr_reader :ir
   def setup
     @ir = InvoiceItemRepository.new
-    ir.from_csv("./data/small/invoice_item.csv")
+    ir.from_csv("./data/small/invoice_items.csv")
   end
 
   def test_invoice_item_repository_exists
