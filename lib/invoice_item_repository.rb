@@ -2,7 +2,8 @@ require 'csv'
 require_relative '../lib/invoice_item'
 
 class InvoiceItemRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
@@ -41,5 +42,6 @@ class InvoiceItemRepository
       item.invoice_id == invoice_id
     end
   end
+  
 
 end

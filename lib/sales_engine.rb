@@ -19,7 +19,7 @@ class SalesEngine
     @invoice_items = InvoiceItemRepository.new(csv_files[:invoice_items], self)
     @transactions = TransactionRepository.new(csv_files[:transactions])
     @customers = CustomerRepository.new(csv_files[:customers])
-    @invoices = InvoiceRepository.new(csv_files[:invoices])
+    @invoices = InvoiceRepository.new(csv_files[:invoices],self)
   end
 
   def self.from_csv(csv_files = nil)
@@ -60,5 +60,9 @@ class SalesEngine
 
   def find_all_items_by_merchant_id(merchant_id)
     merchants.find_by_id(merchant_id)
+  end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    invoices.find_all_by_invoice_id(invoice_id)
   end
 end
