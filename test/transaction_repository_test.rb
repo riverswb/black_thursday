@@ -14,7 +14,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_all_returns_an_array_of_known_transaction_instances
     assert_instance_of Array, tr.all
-    assert_equal 30, tr.all.count
+    assert_equal 31, tr.all.count
     assert_instance_of Transaction, tr.all[0]
   end
 

@@ -66,10 +66,17 @@ class SalesEngine
     invoices.find_all_by_invoice_id(invoice_id)
   end
 
-   def find_all_items_by_invoice_id(invoice_id)
+  def find_all_items_by_invoice_id(invoice_id)
     found_items = invoice_items.find_all_by_invoice_id(invoice_id)
     found_items.map do |invoice_item|
-       items.find_by_id(invoice_item.item_id)
-     end
+      items.find_by_id(invoice_item.item_id)
+    end
+  end
+
+    def find_all_transactions_by_invoice_id(invoice_id)
+      transaction_items = transactions.find_all_by_invoice_id(invoice_id)
+      transaction_items.map do |trans_item|
+        transactions.find_by_id(trans_item.id)
+      end
     end
 end

@@ -46,9 +46,8 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_we_can_find_transaction_connections_from_an_invoice
-    skip
-    invoice = se.invoices.find_by_id(1)
-    assert_instance_of Array, invoice.items
+    invoice = se.invoices.find_by_id(46)
+    assert_instance_of Array, invoice.transactions
     assert_instance_of Transaction, invoice.transactions[0]
   end
 

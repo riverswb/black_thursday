@@ -8,7 +8,7 @@ attr_reader :all,
             :parent
 
   def inspect
-    "#{self.class} #{@invoices.size}"
+    "#{self.class} #{@all.size}"
   end
 
   def initialize(data_path, parent=nil)
@@ -57,5 +57,9 @@ attr_reader :all,
 
   def find_all_items_by_invoice_id(invoice_id)
     @parent.find_all_items_by_invoice_id(invoice_id)
+  end
+
+  def find_all_transactions_by_invoice_id(invoice_id)
+    @parent.find_all_transactions_by_invoice_id(invoice_id)
   end
 end

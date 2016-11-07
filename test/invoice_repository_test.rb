@@ -17,7 +17,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_returns_all_instances_invoices
     assert_equal 1, invoice_repository.all.first.id
-    assert_equal 30, invoice_repository.all.last.id
+    assert_equal 46, invoice_repository.all.last.id
   end
 
   def test_finds_invoice_by_id
