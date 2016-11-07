@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_makes_array_of_all_merchant_information
     merchant_repository = merchants
-    assert_equal 33, merchant_repository.all.count
+    assert_equal 30, merchant_repository.all.count
   end
 
   def test_can_find_merchant_by_id

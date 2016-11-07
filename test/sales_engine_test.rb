@@ -7,14 +7,14 @@ class SalesEngineTest < Minitest::Test
   attr_reader :se
   def setup
     @se = SalesEngine.from_csv({
-      :items =>"./data/small/items.csv",
-      :merchants => "./data/small/merchants.csv",
-      :invoices => "./data/small/invoices.csv"})
-  end
-
-  def test_sales_engine_reads_from_item_csv_file
-    assert_equal 12334141, se.items.all[0].merchant_id
-  end
+          :items         => "./data/small/items.csv",
+          :merchants     => "./data/small/merchants.csv",
+          :invoices      => "./data/small/invoices.csv",
+          :invoice_items => "./data/small/invoice_items.csv",
+          :transactions  => "./data/small/transactions.csv",
+          :customers     => "./data/small/customers.csv"
+        })
+    end
 
   def test_sales_engine_reads_from_item_csv_file
     assert_equal 12334141, se.items.all[0].merchant_id
@@ -37,5 +37,33 @@ class SalesEngineTest < Minitest::Test
     merchant = se.merchants.find_by_id(12334141)
     merchant.items
     assert_instance_of Array, merchant.items
+  end
+
+  def test_we_can_find_connections_from_an_invoice
+    invoice = se.invoices.find_by_id(20)
+    assert_instance_of Array, invoice.items
+    assert_instance_of Item, invoice.items[0]
+  end
+
+  def test_merchant_items_returns_an_instances_of_items
+    skip
+    merchant = se.merchants.find_by_id(12334141)
+    merchant.items
+    assert_instance_of Item, merchant.items
+  end
+
+  def test_merchants_and_items_are_linked_by_merchant_id
+    skip
+    se = SalesEngine.from_csv({:items =>"./data/items.csv",
+      :merchants => "./data/small/merchants.csv"
+      })
+      merchant = se.merchants.find_by_id(12335971)
+      item = se.items.find_by_id(merchant.id)
+
+      assert_equal Array, merchant.class
+      assert_equal 1, merchant.items.length
+
+      merchant = engine.merchants.find_by_id(id)
+      expected = merchant.items
   end
 end

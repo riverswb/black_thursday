@@ -42,8 +42,7 @@ class ItemTest < Minitest::Test
     assert_equal 263395237, i.merchant_id
   end
 
-  # def test_unit_price_to_dollars_returns_price_as_float
-  #   assert_equal 10.99, i.unit_price_to_dollars
-  # end
-
+  def test_unit_price_to_dollars_returns_price_as_float
+    assert_equal 10.99, i.unit_price_to_dollars
+  end
 end

@@ -5,14 +5,14 @@ require 'pry'
 
 class InvoiceRepository
 attr_reader :all,
-            :se
+            :parent
 
   def inspect
     "#{self.class} #{@invoices.size}"
   end
 
-  def initialize(data_path, se=nil)
-    @se = se
+  def initialize(data_path, parent=nil)
+    @parent = parent
     csv_loader(data_path)
     invoice_parser
   end
@@ -28,7 +28,7 @@ attr_reader :all,
   end
 
   def find_merchant_by_id(merchant_id)
-    se.find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 
   def find_by_id(id)
