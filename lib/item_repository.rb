@@ -16,7 +16,7 @@ class ItemRepository
   end
 
   def inspect
-    "#{self.class}#{@items.size}"
+    "#{self.class}#{@all.size}"
   end
 
   def find_by_id(id_number)

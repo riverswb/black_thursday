@@ -9,7 +9,7 @@ class Invoice
               :created_at,
               :updated_at,
               :parent
-
+  # attr_accessor :item
   def initialize(invoice_data, parent=nil)
     @id          = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
@@ -25,6 +25,6 @@ class Invoice
   end
 
   def items
-    @parent.find_items_by_invoice_id(id)
+    @parent.find_all_items_by_invoice_id(self.id)
   end
 end

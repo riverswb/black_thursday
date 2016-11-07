@@ -54,4 +54,8 @@ attr_reader :all,
       instance.status == status_input
     end
   end
+
+  def find_all_items_by_invoice_id(invoice_id)
+    @parent.find_all_items_by_invoice_id(invoice_id)
+  end
 end

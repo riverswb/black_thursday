@@ -16,7 +16,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_item_repository_has_method_all
     ir = item_repository
-    assert_equal 41, ir.all.count
+    assert_equal 42, ir.all.count
   end
 
   def test_item_repository_has_method_all_returns_array

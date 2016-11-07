@@ -19,7 +19,7 @@ class SalesAnalystTest < Minitest::Test
   def test_sales_analyst_can_calculate_average_items_per_merchant
     sa = SalesAnalyst.new(se)
     average = sa.average_items_per_merchant
-    assert_equal 1.37, average
+    assert_equal 1.4, average
   end
 
   def test_can_find_the_number_of_items_for_each_merchant
@@ -31,7 +31,7 @@ class SalesAnalystTest < Minitest::Test
   def test_sa_can_calculate_average_items_per_merchant_standard_deviation
     sa = SalesAnalyst.new(se)
     sa.items_per_merchant
-    assert_equal 2.32, sa.average_items_per_merchant_standard_deviation
+    assert_equal 2.33, sa.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -48,7 +48,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_find_the_average_price_of_items
     sa = SalesAnalyst.new(se)
-    assert_equal 174.44, sa.average_price_of_items.round(2)
+    assert_equal 170.37, sa.average_price_of_items.round(2)
   end
 
   def test_average_average_price_per_merchant

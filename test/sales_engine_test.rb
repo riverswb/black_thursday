@@ -39,32 +39,35 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, merchant.items
   end
 
-  def test_we_can_find_connections_from_an_invoice
-    skip
-    invoice = se.invoices.find_by_id(20)
+  def test_we_can_find_item_connections_from_an_invoice
+    invoice = se.invoices.find_by_id(1)
     assert_instance_of Array, invoice.items
     assert_instance_of Item, invoice.items[0]
   end
 
-  def test_merchant_items_returns_an_instances_of_items
+  def test_we_can_find_transaction_connections_from_an_invoice
     skip
+    invoice = se.invoices.find_by_id(1)
+    assert_instance_of Array, invoice.items
+    assert_instance_of Transaction, invoice.transactions[0]
+  end
+
+  def test_merchant_items_returns_an_instances_of_items
+    skip # this is returning an array of merchants
     merchant = se.merchants.find_by_id(12334141)
     merchant.items
     assert_instance_of Item, merchant.items
   end
 
   def test_merchants_and_items_are_linked_by_merchant_id
-    skip
-    se = SalesEngine.from_csv({:items =>"./data/items.csv",
-      :merchants => "./data/small/merchants.csv"
-      })
+    skip # se.merchants.find_by_id is returning nil
       merchant = se.merchants.find_by_id(12335971)
       item = se.items.find_by_id(merchant.id)
 
       assert_equal Array, merchant.class
       assert_equal 1, merchant.items.length
 
-      merchant = engine.merchants.find_by_id(id)
-      expected = merchant.items
+      # merchant = engine.merchants.find_by_id(id)
+      # expected = merchant.items
   end
 end
