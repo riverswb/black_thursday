@@ -3,7 +3,6 @@ require_relative '../lib/item'
 class ItemRepository
   attr_reader :all,
               :parent
-
   def initialize(csv_file, parent = nil)
     @parent = parent
     content = CSV.open csv_file, headers: true, header_converters: :symbol
@@ -17,7 +16,7 @@ class ItemRepository
   end
 
   def inspect
-    "#{self.class}#{@items.size}"
+    "#{self.class}#{@all.size}"
   end
 
   def find_by_id(id_number)
@@ -40,7 +39,7 @@ class ItemRepository
 
   def find_all_by_price(input)
     all.find_all do |item|
-      item.unit_price_to_dollars == input.to_f
+      item.unit_price.to_f == input.to_f
     end
   end
 

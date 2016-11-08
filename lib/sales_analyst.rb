@@ -8,6 +8,21 @@ class SalesAnalyst
     @merchants_items = {}
   end
 
+  def total_revenue_by_date(date_input)
+    invoices = find_invoices_by_date(date_input)
+    invoice_items = invoices.map do |invoice|
+      invoice.invoice_items
+    end
+    invoice_items.flatten!
+    invoice_items.reduce(0) do |total, n|
+      total += ( n.unit_price * n.quantity)
+  end
+end
+
+def find_invoices_by_date(date_input)
+  @se.find_invoices_by_date(date_input)
+end
+
   def invoice_status(status_input)
     count = se.all_invoices.find_all do |invoice|
       invoice.status == status_input
@@ -99,8 +114,9 @@ class SalesAnalyst
   end
 
   def items_per_merchant
+    #group_by might be a better way to do this
     se.merchants.all.map do |merchant|
-      merchants_items.store(merchant.id, se.items.find_all_by_merchant_id(merchant.id))
+      @merchants_items[merchant.id] = se.items.find_all_by_merchant_id(merchant.id)
     end
   end
 
@@ -110,6 +126,7 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
+    # think this could be done using count enumerable
     items_per_merchant.map do |merchant|
       merchant.count
     end
@@ -185,7 +202,7 @@ class SalesAnalyst
   def golden_items
     i_std_dev = item_std_deviation
     se.items.all.find_all do |item|
-      item.unit_price.to_f >  (average_price_of_items  + (2 * i_std_dev))
+      item.unit_price_to_dollars >  (average_price_of_items  + (2 * i_std_dev))
     end
   end
 end

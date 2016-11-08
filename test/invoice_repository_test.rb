@@ -1,12 +1,11 @@
 require_relative '../test/test_helper'
 require_relative "../lib/invoice_repository"
-require_relative "../lib/sales_engine"
+# require_relative "../lib/sales_engine"
 require 'csv'
 
 
 class InvoiceRepositoryTest < MiniTest::Test
   attr_reader :invoice_repository
-
   def setup
     @invoice_repository = InvoiceRepository.new("./data/small/invoices.csv")
   end
@@ -18,7 +17,7 @@ class InvoiceRepositoryTest < MiniTest::Test
 
   def test_returns_all_instances_invoices
     assert_equal 1, invoice_repository.all.first.id
-    assert_equal 30, invoice_repository.all.last.id
+    assert_equal 1119, invoice_repository.all.last.id
   end
 
   def test_finds_invoice_by_id

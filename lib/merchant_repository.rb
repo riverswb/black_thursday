@@ -8,7 +8,7 @@ class MerchantRepository
               :parent
 
   def inspect
-    "#{self.class} #{@merchants.size}"
+    "#{self.class} #{all.size}"
   end
 
   def initialize(csv_file, parent = nil)
@@ -56,5 +56,9 @@ class MerchantRepository
 
   def find_all_invoices_by_merchant_id(merchant_id)
     parent.find_all_invoices_by_merchant_id(merchant_id)
+  end
+
+  def find_all_customers_by_merchant_id(id)
+    parent.find_all_customers_by_merchant_id(id)
   end
 end
