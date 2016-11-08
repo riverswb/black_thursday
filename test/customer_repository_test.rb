@@ -15,7 +15,7 @@ class CustomerRepositoryTest < Minitest::Test
   def test_all_returns_array_of_all_known_customers
     assert_instance_of Array, cr.all
     assert_instance_of Customer, cr.all[0]
-    assert_equal 30, cr.all.count
+    assert_equal 32, cr.all.count
   end
 
   def test_find_by_id_returns_customer_matching_id

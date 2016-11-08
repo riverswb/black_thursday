@@ -9,7 +9,7 @@ class Invoice
                 :created_at,
                 :updated_at,
                 :parent
-  attr_accessor :item
+  # attr_accessor :item
   def initialize(invoice_data, parent=nil)
     @id          = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
@@ -40,5 +40,15 @@ class Invoice
     transactions.any? do |transaction|
       transaction.result.downcase == "success"
     end
+  end
+
+  def invoice_items
+    @parent.find_all_invoice_items_by_invoice_id(id)
+  end
+
+  def total
+    invoice_items.map do |item|
+      (item.quantity * item.unit_price)
+    end.reduce(:+)
   end
 end

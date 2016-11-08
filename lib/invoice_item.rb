@@ -14,7 +14,7 @@ class InvoiceItem
     @id = args[:id].to_i
     @item_id = args[:item_id].to_i
     @invoice_id = args[:invoice_id].to_i
-    @quantity = args[:quantity]
+    @quantity = args[:quantity].to_i
     @unit_price = (args[:unit_price].to_f / 100 ).to_d
     @created_at = Time.parse(args[:created_at])
     @updated_at = Time.parse(args[:updated_at])

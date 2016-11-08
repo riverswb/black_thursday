@@ -66,4 +66,8 @@ attr_reader :all,
   def find_all_customers_by_invoice_id(invoice_id)
     parent.find_all_customers_by_invoice_id(invoice_id)
   end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    parent.find_all_invoice_items_by_invoice_id(invoice_id)
+  end
 end

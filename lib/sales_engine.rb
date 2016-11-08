@@ -100,4 +100,8 @@ class SalesEngine
       customers.find_by_id(id)
     end.uniq
   end
+
+  def find_all_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
 end
