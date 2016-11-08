@@ -63,6 +63,12 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Sylvester", invoice.customer.first_name
   end
 
+  def test_can_find_invoice_by_transaction_number
+    transaction = se.transactions.find_by_id(20)
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 537, transaction.invoice.customer_id
+  end
+
   def test_merchant_items_returns_an_instances_of_items
     skip # this is returning an array of merchants
     merchant = se.merchants.find_by_id(12334141)

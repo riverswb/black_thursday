@@ -17,7 +17,7 @@ class SalesEngine
     @items = ItemRepository.new(csv_files[:items], self)
     @merchants = MerchantRepository.new(csv_files[:merchants], self)
     @invoice_items = InvoiceItemRepository.new(csv_files[:invoice_items], self)
-    @transactions = TransactionRepository.new(csv_files[:transactions])
+    @transactions = TransactionRepository.new(csv_files[:transactions], self)
     @customers = CustomerRepository.new(csv_files[:customers])
     @invoices = InvoiceRepository.new(csv_files[:invoices],self)
   end
@@ -87,5 +87,9 @@ class SalesEngine
 
   def find_customers_by_id(id)
     customers.find_by_id(id)
+  end
+
+  def find_invoice_by_id(id)
+    invoices.find_by_id(id)
   end
 end

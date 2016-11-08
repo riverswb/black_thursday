@@ -2,14 +2,16 @@ require 'csv'
 require_relative '../lib/transaction'
 
 class TransactionRepository
-  attr_reader :all
+  attr_reader :all,
+              :parent
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
-  def initialize(csv_file = nil)
+  def initialize(csv_file = nil, parent = nil)
     from_csv(csv_file) if !csv_file.nil?
+    @parent = parent
   end
 
   def from_csv(csv_file)
@@ -19,7 +21,7 @@ class TransactionRepository
 
   def transaction_parser(content)
     @all = content.map do |row|
-      Transaction.new(row)
+      Transaction.new(row, self)
     end
   end
 
@@ -45,5 +47,9 @@ class TransactionRepository
     all.find_all do |transaction|
       transaction.result == result
     end
+  end
+
+  def find_invoice_by_id(id)
+    @parent.find_invoice_by_id(id)
   end
 end
