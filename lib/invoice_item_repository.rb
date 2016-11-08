@@ -6,7 +6,7 @@ class InvoiceItemRepository
               :parent
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
   def initialize(csv_file = nil, parent = nil)
@@ -42,6 +42,6 @@ class InvoiceItemRepository
       item.invoice_id == invoice_id
     end
   end
-  
+
 
 end

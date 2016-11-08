@@ -101,7 +101,8 @@ class SalesAnalyst
   def items_per_merchant
     #group_by might be a better way to do this
     se.merchants.all.map do |merchant|
-      @merchants_items[merchant.id] = se.items.find_all_by_merchant_id(merchant.id)
+      items = se.items.find_all_by_merchant_id(merchant.id)
+      @merchants_items[merchant.id] = items
     end
   end
 
