@@ -31,4 +31,8 @@ class Invoice
   def transactions
     @parent.find_all_transactions_by_invoice_id(self.id)
   end
+
+  def customer
+    @parent.find_all_customers_by_invoice_id(self.id)
+  end
 end

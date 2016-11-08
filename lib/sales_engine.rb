@@ -73,10 +73,15 @@ class SalesEngine
     end
   end
 
-    def find_all_transactions_by_invoice_id(invoice_id)
-      transaction_items = transactions.find_all_by_invoice_id(invoice_id)
-      transaction_items.map do |trans_item|
-        transactions.find_by_id(trans_item.id)
-      end
+  def find_all_transactions_by_invoice_id(invoice_id)
+    transaction_items = transactions.find_all_by_invoice_id(invoice_id)
+    transaction_items.map do |trans_item|
+      transactions.find_by_id(trans_item.id)
     end
+  end
+
+  def find_all_customers_by_invoice_id(invoice_id)
+    binding.pry
+    customer_items = customers.find_all_by_invoice_id(invoice_id)
+  end
 end

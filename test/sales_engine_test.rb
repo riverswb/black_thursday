@@ -51,6 +51,12 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Transaction, invoice.transactions[0]
   end
 
+  def test_we_can_find_customer_connections_from_an_invoice
+    invoice = se.invoices.find_by_id(20)
+    # binding.pry
+    assert_instance_of Customer, invoice.customer
+  end
+
   def test_merchant_items_returns_an_instances_of_items
     skip # this is returning an array of merchants
     merchant = se.merchants.find_by_id(12334141)
