@@ -81,7 +81,11 @@ class SalesEngine
   end
 
   def find_all_customers_by_invoice_id(invoice_id)
-    binding.pry
-    customer_items = customers.find_all_by_invoice_id(invoice_id)
+    found = invoices.find_by_id(invoice_id)
+    customers.find_by_id(found.customer_id)
+  end
+
+  def find_customers_by_id(id)
+    customers.find_by_id(id)
   end
 end

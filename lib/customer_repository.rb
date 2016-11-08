@@ -6,7 +6,7 @@ class CustomerRepository
               :parent
 
   def inspect
-    "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
   def initialize(csv_file = nil, parent = nil)
@@ -40,6 +40,12 @@ class CustomerRepository
   def find_all_by_last_name(name)
     all.find_all do |customer|
       customer.last_name.downcase.include?(name.downcase)
+    end
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    all.find_all do |customer|
+      customer.id == invoice_id
     end
   end
 end

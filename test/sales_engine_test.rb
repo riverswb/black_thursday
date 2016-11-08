@@ -51,10 +51,16 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Transaction, invoice.transactions[0]
   end
 
+  def test_we_can_find_customers_by_id
+    customer = se.customers.find_by_id(30)
+    assert_instance_of Customer, customer
+    assert_equal "Elva", customer.first_name
+  end
+
   def test_we_can_find_customer_connections_from_an_invoice
     invoice = se.invoices.find_by_id(20)
-    # binding.pry
     assert_instance_of Customer, invoice.customer
+    assert_equal "Sylvester", invoice.customer.first_name
   end
 
   def test_merchant_items_returns_an_instances_of_items
