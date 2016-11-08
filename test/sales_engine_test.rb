@@ -69,6 +69,20 @@ class SalesEngineTest < Minitest::Test
     assert_equal 537, transaction.invoice.customer_id
   end
 
+  def test_merchant_can_return_related_customers
+    merchant = se.merchants.find_by_id(12334115)
+    assert_instance_of Array, merchant.customers
+    assert_equal 2, merchant.customers.count
+    assert_equal "Thiel", merchant.customers[0].last_name
+  end
+
+  def test_business_intelligence_we_know_if_invoice_is_paid_in_full
+    invoice_1 = se.invoices.find_by_id(1)
+    invoice_2 = se.invoices.find_by_id(46)
+    assert_equal false, invoice_1.is_paid_in_full?
+    assert_equal true, invoice_2.is_paid_in_full?
+  end
+
   def test_merchant_items_returns_an_instances_of_items
     skip # this is returning an array of merchants
     merchant = se.merchants.find_by_id(12334141)

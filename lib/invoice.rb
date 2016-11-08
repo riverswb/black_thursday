@@ -2,14 +2,14 @@ require "time"
 
 class Invoice
 
-  attr_reader :id,
-              :customer_id,
-              :merchant_id,
-              :status,
-              :created_at,
-              :updated_at,
-              :parent
-  # attr_accessor :item
+  attr_reader   :id,
+                :customer_id,
+                :merchant_id,
+                :status,
+                :created_at,
+                :updated_at,
+                :parent
+  attr_accessor :item
   def initialize(invoice_data, parent=nil)
     @id          = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
@@ -34,5 +34,11 @@ class Invoice
 
   def customer
     @parent.find_all_customers_by_invoice_id(self.id)
+  end
+
+  def is_paid_in_full?
+    transactions.any? do |transaction|
+      transaction.result.downcase == "success"
+    end
   end
 end
