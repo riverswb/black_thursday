@@ -9,7 +9,6 @@ class Invoice
                 :created_at,
                 :updated_at,
                 :parent
-  # attr_accessor :item
   def initialize(invoice_data, parent=nil)
     @id          = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
@@ -23,7 +22,7 @@ class Invoice
   def pending?
     also_pending =
     transactions.none? { |transaction| transaction.result == "success" }
-    if  also_pending == true
+    if also_pending == true
         true
     elsif transactions.length == 0
       false

@@ -24,7 +24,7 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     our_merchant = all_merchants.find do |merchant|
-      merchant.id == merchant_id
+      merchant.id.to_i == merchant_id
     end
     paid_invoices = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
@@ -33,7 +33,7 @@ class SalesAnalyst
       invoice.invoice_items
     end
     items = paid_invoice_items.group_by do |item|
-      item.item_id
+      item.item_id.to_i
     end
     reduced = Hash.new{0}
     items.each do |key, value|
@@ -55,7 +55,7 @@ class SalesAnalyst
 
   def most_sold_item_for_merchant(merchant_id)
     our_merchant = all_merchants.find do |merchant|
-      merchant.id == merchant_id
+      merchant.id.to_i == merchant_id
     end
     paid_invoices = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
@@ -64,7 +64,7 @@ class SalesAnalyst
       invoice.invoice_items
     end
     items = paid_invoice_items.group_by do |item|
-      item.item_id
+      item.item_id.to_i
     end
     reduced = Hash.new{0}
     items.each do |key, value|

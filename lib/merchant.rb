@@ -17,7 +17,7 @@ class Merchant
   end
 
   def single_sellers?
-    true if items.length == 1
+    items.length == 1
   end
 
   def revenue

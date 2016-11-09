@@ -27,13 +27,13 @@ class TransactionRepository
 
   def find_by_id(id)
     all.find do |transaction|
-      transaction.id == id
+      transaction.id.to_i == id
     end
   end
 
   def find_all_by_invoice_id(number)
     all.find_all do |transaction|
-      transaction.invoice_id == number
+      transaction.invoice_id.to_i == number
     end
   end
 
