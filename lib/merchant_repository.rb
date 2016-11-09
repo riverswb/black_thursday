@@ -34,7 +34,7 @@ class MerchantRepository
 
   def find_by_id(id_input)
     merchants.find do |instance|
-      instance.id == id_input.to_i
+      instance.id.to_i == id_input.to_i
     end
   end
 

@@ -1,4 +1,6 @@
 require_relative '../lib/merchant_repository'
+require 'pry'
+
 
 class Merchant
   attr_reader   :name,
@@ -10,28 +12,20 @@ class Merchant
   def initialize(merchant_data, parent=nil)
     @name       = merchant_data[:name].to_s
     @id         = merchant_data[:id].to_i
-    @created_at = merchant_data[:created_at]
-    @updated_at = merchant_data[:updated_at]
+    @created_at = Time.parse(merchant_data[:created_at])
+    @updated_at = Time.parse(merchant_data[:updated_at])
     @parent = parent
     @items = []
   end
 
-  def revenue
-    invoices.reduce(0) do |total, invoice|
-      if invoice.total.nil?
-        total += 0
-      else
-        total += invoice.total
-      end
-    end
+  def single_sellers?
+    true if items.length == 1
   end
 
-  def total
-    invoices.reduce(0) do |sum, invoice|
-      if invoice.total.class != nil
-        sum += invoice.total
-      end
-    end
+  def revenue
+    invoices.map do |invoice|
+      invoice.total
+    end.reduce(:+)
   end
 
   def items

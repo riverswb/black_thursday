@@ -1,6 +1,8 @@
 require_relative '../test/test_helper.rb'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
+require 'pry'
+
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :se
@@ -8,12 +10,19 @@ class SalesAnalystTest < Minitest::Test
     @se = SalesEngine.from_csv({
       :items     => "./data/small/items.csv",
       :merchants => "./data/small/merchants.csv",
-      :invoices  => "./data/small/invoices.csv"})
+      :invoices  => "./data/small/invoices.csv",
+      :invoice_items => "./data/small/invoices.csv"})
   end
-
+  
   def test_sales_analyst_exists
     sa = SalesAnalyst.new(se)
     assert_equal SalesAnalyst, sa.class
+  end
+
+  def test_returns_top_earners_by_input
+    sa = SalesAnalyst.new(se)
+    assert_equal 2, sa.top_revenue_earners(2).length
+    assert_equal 10, sa.top_revenue_earners(10).length
   end
 
   def test_sales_analyst_can_calculate_average_items_per_merchant

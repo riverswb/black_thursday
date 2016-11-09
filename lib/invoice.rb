@@ -20,6 +20,18 @@ class Invoice
     @parent      = parent
   end
 
+  def pending?
+    also_pending =
+    transactions.none? { |transaction| transaction.result == "success" }
+    if  also_pending == true
+        true
+    elsif transactions.length == 0
+      false
+    else
+      false
+    end
+  end
+
   def merchant
     @parent.find_merchant_by_id(merchant_id)
   end
