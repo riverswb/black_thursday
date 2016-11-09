@@ -12,6 +12,13 @@ class SalesAnalyst
     @merchants_items = {}
   end
 
+  def merchants_with_only_one_item_registered_in_month(month)
+    se.merchants.all.select do |merchant|
+      merchant_items = se.items.find_all_by_merchant_id(merchant.id)
+      merchant_items.count == 1 && merchant.created_at.strftime("%B") == month
+    end
+  end
+
   def best_item_for_merchant(merchant_id)
     our_merchant = all_merchants.find do |merchant|
       merchant.id == merchant_id
@@ -74,17 +81,12 @@ class SalesAnalyst
     merchant.revenue
   end
 
-  def merchants_with_only_one_item_registered_in_month(month)
-    all_merchants.find_all do |merchant|
-      merchant.created_at.strftime("%B") == month && merchant.items.length == 1
-    end
-  end
-
   def merchants_with_only_one_item
-    all_merchants.find_all do |merchant|
-      merchant.single_sellers?
+    se.merchants.all.select do |merchant|
+      merchant_items = se.items.find_all_by_merchant_id(merchant.id)
+      merchant_items.count == 1
     end
-  end
+end
 
   def merchants_with_pending_invoices
     waiting_merchants = all_merchants.find_all do |merchant|
