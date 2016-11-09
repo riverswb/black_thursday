@@ -32,14 +32,8 @@ class TransactionRepository
     end
   end
 
-  # def find_all_by_invoice_id(number)
-  #   @all.select do |transaction|
-  #     transaction.invoice_id == number
-  #   end
-  # end
-
   def find_all_by_invoice_id(number)
-    @all.find_all do |transaction|
+    all.find_all do |transaction|
       transaction.invoice_id == number
     end
   end
@@ -57,6 +51,6 @@ class TransactionRepository
   end
 
   def find_invoice_by_id(id)
-    @parent.find_invoice_by_id(id)
+    parent.find_invoice_by_id(id)
   end
 end

@@ -28,7 +28,7 @@ attr_reader :all,
   end
 
   def find_all_by_date(date_input)
-    @all.find_all do |instance|
+    all.find_all do |instance|
       instance.created_at.to_date == date_input.to_date
     end
   end
@@ -62,11 +62,11 @@ attr_reader :all,
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    @parent.find_all_items_by_invoice_id(invoice_id)
+    parent.find_all_items_by_invoice_id(invoice_id)
   end
 
   def find_all_transactions_by_invoice_id(invoice_id)
-    @parent.find_all_transactions_by_invoice_id(invoice_id)
+    parent.find_all_transactions_by_invoice_id(invoice_id)
   end
 
   def find_all_customers_by_invoice_id(invoice_id)

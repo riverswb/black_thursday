@@ -51,7 +51,7 @@ class SalesAnalyst
   end
 
   def all_items
-    @se.all_items
+    se.all_items
   end
 
   def most_sold_item_for_merchant(merchant_id)
@@ -81,7 +81,7 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(id)
-    merchant = @se.find_merchant_by_id(id)
+    merchant = se.find_merchant_by_id(id)
     merchant.revenue
   end
 
@@ -108,7 +108,7 @@ class SalesAnalyst
   end
 
   def revenue_by_merchant(merchant_id)
-    merchants_invoices = @se.find_all_invoices_by_merchant_id(merchant_id)
+    merchants_invoices = se.find_all_invoices_by_merchant_id(merchant_id)
     merchants_invoices.reduce(0) do |revenue, invoice|
       revenue += invoice.total if invoice.is_paid_in_full?
       revenue
@@ -134,7 +134,7 @@ class SalesAnalyst
   end
 
   def find_invoices_by_date(date_input)
-    @se.find_invoices_by_date(date_input)
+    se.find_invoices_by_date(date_input)
   end
 
   def invoice_status(status_input)
@@ -228,9 +228,8 @@ class SalesAnalyst
   end
 
   def items_per_merchant
-    #group_by might be a better way to do this
     se.merchants.all.map do |merchant|
-      @merchants_items[merchant.id] = se.items.find_all_by_merchant_id(merchant.id)
+      merchants_items[merchant.id] = se.items.find_all_by_merchant_id(merchant.id)
     end
   end
 
@@ -240,7 +239,6 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
-    # think this could be done using count enumerable
     items_per_merchant.map do |merchant|
       merchant.count
     end
