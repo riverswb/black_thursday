@@ -1,7 +1,6 @@
 require_relative '../test/test_helper.rb'
 require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
-require 'pry'
 
 class SalesAnalystTest < Minitest::Test
   attr_reader :se,

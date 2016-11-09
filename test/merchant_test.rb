@@ -1,6 +1,5 @@
 require_relative '../test/test_helper'
 require_relative '../lib/merchant'
-require 'pry'
 
 class MerchantTest < Minitest::Test
   def test_merchant_exists_and_has_a_name
