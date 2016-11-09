@@ -124,7 +124,8 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_item_merchants_ids.map do |merchant_id|
-      se.find_merchant_by_id(merchant_id)
+      
+      se.find_merchant_by_id(merchant_id[0])
     end
   end
 
