@@ -1,3 +1,2 @@
 class FileLoader
-
 end

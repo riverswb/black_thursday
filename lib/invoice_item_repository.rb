@@ -27,21 +27,19 @@ class InvoiceItemRepository
 
   def find_by_id(id)
     all.find do |item|
-      item.id == id
+      item.id.to_i == id
     end
   end
 
   def find_all_by_item_id(item_id)
     all.find_all do |item|
-      item.item_id == item_id
+      item.item_id.to_i == item_id
     end
   end
 
   def find_all_by_invoice_id(invoice_id)
     all.find_all do |item|
-      item.invoice_id == invoice_id
+      item.invoice_id.to_i == invoice_id
     end
   end
-
-
 end

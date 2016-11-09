@@ -1,7 +1,6 @@
 require_relative "../lib/invoice"
 require_relative '../lib/sales_engine'
 require "csv"
-# require 'pry'
 
 class InvoiceRepository
 attr_reader :all,
@@ -27,13 +26,19 @@ attr_reader :all,
     end
   end
 
+  def find_all_by_date(date_input)
+    all.find_all do |instance|
+      instance.created_at.to_date == date_input.to_date
+    end
+  end
+
   def find_merchant_by_id(merchant_id)
     parent.find_merchant_by_id(merchant_id)
   end
 
   def find_by_id(id)
     all.find do |instance|
-      instance.id == id.to_i
+      instance.id == id
     end
   end
 
@@ -56,11 +61,11 @@ attr_reader :all,
   end
 
   def find_all_items_by_invoice_id(invoice_id)
-    @parent.find_all_items_by_invoice_id(invoice_id)
+    parent.find_all_items_by_invoice_id(invoice_id)
   end
 
   def find_all_transactions_by_invoice_id(invoice_id)
-    @parent.find_all_transactions_by_invoice_id(invoice_id)
+    parent.find_all_transactions_by_invoice_id(invoice_id)
   end
 
   def find_all_customers_by_invoice_id(invoice_id)

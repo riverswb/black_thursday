@@ -6,6 +6,7 @@ require_relative '../lib/transaction_repository'
 require_relative '../lib/customer_repository'
 require_relative '../lib/invoice_repository'
 
+
 class SalesEngine
   attr_reader :items,
               :merchants,
@@ -26,8 +27,16 @@ class SalesEngine
     self.new(csv_files)
   end
 
+  def all_items
+    items.all
+  end
+
   def all_invoices
     invoices.all
+  end
+
+  def find_invoices_by_date(date_input)
+    invoices.find_all_by_date(date_input)
   end
 
   def find_invoices_by_merchant_id(merchant_id_input)
@@ -44,6 +53,10 @@ class SalesEngine
 
   def invoice_count
     invoices.all.count
+  end
+
+  def item_count
+    items.all.count
   end
 
   def find_merchant_by_id(merchant_id)

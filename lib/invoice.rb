@@ -9,7 +9,6 @@ class Invoice
                 :created_at,
                 :updated_at,
                 :parent
-  # attr_accessor :item
   def initialize(invoice_data, parent=nil)
     @id          = invoice_data[:id].to_i
     @customer_id = invoice_data[:customer_id].to_i
@@ -20,20 +19,32 @@ class Invoice
     @parent      = parent
   end
 
+  def pending?
+    also_pending =
+    transactions.none? { |transaction| transaction.result == "success" }
+    if also_pending == true
+        true
+    elsif transactions.length == 0
+      false
+    else
+      false
+    end
+  end
+
   def merchant
-    @parent.find_merchant_by_id(merchant_id)
+    parent.find_merchant_by_id(merchant_id)
   end
 
   def items
-    @parent.find_all_items_by_invoice_id(self.id)
+    parent.find_all_items_by_invoice_id(self.id)
   end
 
   def transactions
-    @parent.find_all_transactions_by_invoice_id(self.id)
+    parent.find_all_transactions_by_invoice_id(self.id)
   end
 
   def customer
-    @parent.find_all_customers_by_invoice_id(self.id)
+    parent.find_all_customers_by_invoice_id(self.id)
   end
 
   def is_paid_in_full?
@@ -43,7 +54,7 @@ class Invoice
   end
 
   def invoice_items
-    @parent.find_all_invoice_items_by_invoice_id(id)
+    parent.find_all_invoice_items_by_invoice_id(id)
   end
 
   def total

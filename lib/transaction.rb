@@ -19,6 +19,6 @@ class Transaction
   end
 
   def invoice
-    @parent.find_invoice_by_id(self.invoice_id)
+    parent.find_invoice_by_id(self.invoice_id)
   end
 end
