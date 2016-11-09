@@ -125,16 +125,15 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
-    std_deviation = average_items_per_merchant_standard_deviation
-    high_item_merchants_ids = []
-    average_items_per_merchant_standard_deviation
-    merchants_items.find_all do |merchant|
-      if merchant[1].count >  (std_deviation + average_items_per_merchant)
-        high_item_merchants_ids << merchant[0]
-      end
-    end
     high_item_merchants_ids.map do |merchant_id|
       se.find_merchant_by_id(merchant_id)
+    end
+  end
+
+  def high_item_merchants_ids
+    std_deviation = average_items_per_merchant_standard_deviation
+    merchants_items.find_all do |merchant|
+      merchant[1].count >  (std_deviation + average_items_per_merchant)
     end
   end
 

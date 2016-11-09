@@ -39,6 +39,12 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1, sa.merchants_with_high_item_count.count
   end
 
+  def test_merchants_with_high_item_count_returns_array
+    sa = SalesAnalyst.new(se)
+
+    assert_instance_of Array, sa.merchants_with_high_item_count
+  end
+
   def test_find_the_average_item_price_for_a_merchant
     sa = SalesAnalyst.new(se)
     bigdecimal_price = sa.average_item_price_for_merchant(12334141)
