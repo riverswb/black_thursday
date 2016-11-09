@@ -86,7 +86,7 @@ class SalesAnalyst
       merchant_items = se.items.find_all_by_merchant_id(merchant.id)
       merchant_items.count == 1
     end
-end
+  end
 
   def merchants_with_pending_invoices
     waiting_merchants = all_merchants.find_all do |merchant|

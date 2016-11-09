@@ -1,5 +1,6 @@
 require 'csv'
 require_relative '../lib/transaction'
+require 'pry'
 
 class TransactionRepository
   attr_reader :all,
@@ -31,8 +32,14 @@ class TransactionRepository
     end
   end
 
+  # def find_all_by_invoice_id(number)
+  #   @all.select do |transaction|
+  #     transaction.invoice_id == number
+  #   end
+  # end
+
   def find_all_by_invoice_id(number)
-    all.find_all do |transaction|
+    @all.find_all do |transaction|
       transaction.invoice_id == number
     end
   end

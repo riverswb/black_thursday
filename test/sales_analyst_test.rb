@@ -3,7 +3,6 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 require 'pry'
 
-
 class SalesAnalystTest < Minitest::Test
   attr_reader :se
   def setup
@@ -11,12 +10,20 @@ class SalesAnalystTest < Minitest::Test
       :items     => "./data/small/items.csv",
       :merchants => "./data/small/merchants.csv",
       :invoices  => "./data/small/invoices.csv",
-      :invoice_items => "./data/small/invoices.csv"})
+      :invoice_items => "./data/small/invoices.csv",
+      :transactions => "./data/small/transactions.csv"})
   end
-  
+
   def test_sales_analyst_exists
     sa = SalesAnalyst.new(se)
     assert_equal SalesAnalyst, sa.class
+  end
+
+
+  def test_returns_merchants_with_only_one_item_registered_in_a_named_month
+    sa = SalesAnalyst.new(se)
+    assert_equal 2, sa.merchants_with_only_one_item_registered_in_month("March").count
+    assert_equal 1, sa.merchants_with_only_one_item_registered_in_month("January").count
   end
 
   def test_returns_top_earners_by_input
