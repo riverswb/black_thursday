@@ -16,6 +16,24 @@ class Merchant
     @items = []
   end
 
+  def revenue
+    invoices.reduce(0) do |total, invoice|
+      if invoice.total.nil?
+        total += 0
+      else
+        total += invoice.total
+      end
+    end
+  end
+
+  def total
+    invoices.reduce(0) do |sum, invoice|
+      if invoice.total.class != nil
+        sum += invoice.total
+      end
+    end
+  end
+
   def items
     @items << @parent.find_all_items_by_merchant_id(self.id)
   end

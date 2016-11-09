@@ -16,12 +16,12 @@ class SalesAnalyst
     invoice_items.flatten!
     invoice_items.reduce(0) do |total, n|
       total += ( n.unit_price * n.quantity)
+    end
   end
-end
 
-def find_invoices_by_date(date_input)
-  @se.find_invoices_by_date(date_input)
-end
+  def find_invoices_by_date(date_input)
+    @se.find_invoices_by_date(date_input)
+  end
 
   def invoice_status(status_input)
     count = se.all_invoices.find_all do |invoice|
