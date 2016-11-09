@@ -12,6 +12,10 @@ class SalesAnalyst
     @merchants_items = {}
   end
 
+  def item_count
+    se.item_count
+  end
+
   def merchants_with_only_one_item_registered_in_month(month)
     se.merchants.all.select do |merchant|
       merchant_items = se.items.find_all_by_merchant_id(merchant.id)
@@ -177,7 +181,7 @@ class SalesAnalyst
   def bottom_merchants_by_invoice_count
     standard_deviation = average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
-        all_merchants.find_all do |merchant|
+      all_merchants.find_all do |merchant|
       merchant_invoice_count(merchant.id) < ((-standard_deviation *2) + average)
     end
   end
@@ -185,8 +189,8 @@ class SalesAnalyst
   def top_merchants_by_invoice_count
     standard_deviation = average_invoices_per_merchant_standard_deviation
     average = average_invoices_per_merchant
-    all_merchants.find_all do |merchant|
-      merchant_invoice_count(merchant.id) > ((standard_deviation *2) + average)
+      all_merchants.find_all do |merchant|
+      merchant_invoice_count(merchant.id) > ((standard_deviation * 2) + average)
     end
   end
 

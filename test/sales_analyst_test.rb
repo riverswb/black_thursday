@@ -4,14 +4,16 @@ require_relative '../lib/sales_engine'
 require 'pry'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :se
+  attr_reader :se,
+              :sa
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/small/items.csv",
       :merchants => "./data/small/merchants.csv",
       :invoices  => "./data/small/invoices.csv",
       :invoice_items => "./data/small/invoices.csv",
-      :transactions => "./data/small/transactions.csv"})
+      :transactions => "./data/small/transactions.csv",
+      :customers => "./data/small/customers.csv"})
   end
 
   def test_sales_analyst_exists
@@ -19,6 +21,20 @@ class SalesAnalystTest < Minitest::Test
     assert_equal SalesAnalyst, sa.class
   end
 
+  def test_find_total_revenue_by_date
+    sa = SalesAnalyst.new(se)
+    assert_equal 0, sa.total_revenue_by_date(Time.parse("2009-12-09"))
+  end
+
+  def test_item_count
+    sa = SalesAnalyst.new(se)
+    assert_equal 42, sa.item_count
+  end
+
+  def test_it_knows_the_number_of_merchants
+    sa = SalesAnalyst.new(se)
+    assert_equal 30, sa.merchant_count
+  end
 
   def test_returns_merchants_with_only_one_item_registered_in_a_named_month
     sa = SalesAnalyst.new(se)
