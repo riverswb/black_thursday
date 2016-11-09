@@ -97,13 +97,21 @@ class SalesAnalyst
 
   def merchants_ranked_by_revenue
     all_merchants.sort_by do |merchant|
-      merchant.revenue
+      revenue_by_merchant(merchant.id)
     end.reverse
+  end
+
+  def revenue_by_merchant(merchant_id)
+    merchants_invoices = @se.find_all_invoices_by_merchant_id(merchant_id)
+    merchants_invoices.reduce(0) do |revenue, invoice|
+      revenue += invoice.total if invoice.is_paid_in_full?
+      revenue
+    end
   end
 
   def top_revenue_earners(top_amount=20)
     real_dealers = all_merchants.sort_by do |merchant|
-      merchant.revenue
+      revenue_by_merchant(merchant.id)
     end
     top_dealers = real_dealers.last(top_amount).reverse
   end
