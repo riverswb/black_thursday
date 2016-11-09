@@ -93,13 +93,12 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-      items = se.items.all.count.to_f
-      merchants = se.merchants.all.count.to_f
-      (items / merchants).round(2)
+    items = se.items.all.count
+    merchants = se.merchants.all.count.to_f
+    (items / merchants).round(2)
   end
 
   def items_per_merchant
-    #group_by might be a better way to do this
     se.merchants.all.map do |merchant|
       items = se.items.find_all_by_merchant_id(merchant.id)
       @merchants_items[merchant.id] = items
@@ -112,7 +111,6 @@ class SalesAnalyst
   end
 
   def number_items_per_merchant
-    # think this could be done using count enumerable
     items_per_merchant.map do |merchant|
       merchant.count
     end
@@ -139,10 +137,8 @@ class SalesAnalyst
 
   def average_item_price_for_merchant(merchant_id)
     items = se.items.find_all_by_merchant_id(merchant_id)
-    prices = items.map do |item|
-      item.unit_price
-    end
-    (prices.reduce(:+) / prices.count).round(2)
+    prices = items.reduce(0) {|sum, num| sum += num.unit_price}
+    (prices / items.count).round(2)
   end
 
   def average_price_of_items
@@ -157,8 +153,7 @@ class SalesAnalyst
     prices = items.map do |item|
       item.unit_price
     end
-    merchant_avg_avg = []
-    merchant_avg_avg << (prices.reduce(:+) / prices.count).round(2)
+    (prices.reduce(:+) / prices.count).round(2)
   end
 
   def average_average_price_per_merchant
