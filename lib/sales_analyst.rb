@@ -1,6 +1,5 @@
 require 'bigdecimal'
 require 'bigdecimal/util'
-require 'pry'
 
 class SalesAnalyst
   attr_reader :se,

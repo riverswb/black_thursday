@@ -1,6 +1,5 @@
 require 'csv'
 require_relative '../lib/transaction'
-require 'pry'
 
 class TransactionRepository
   attr_reader :all,

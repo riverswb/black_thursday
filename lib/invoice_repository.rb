@@ -1,7 +1,6 @@
 require_relative "../lib/invoice"
 require_relative '../lib/sales_engine'
 require "csv"
-# require 'pry'
 
 class InvoiceRepository
 attr_reader :all,
