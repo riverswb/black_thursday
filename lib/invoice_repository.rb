@@ -7,21 +7,21 @@ attr_reader :all,
             :parent
 
   def inspect
-    "#{self.class} #{@all.size}"
+    "#{self.class} #{all.size}"
   end
 
   def initialize(data_path, parent=nil)
     @parent = parent
     csv_loader(data_path)
-    invoice_parser
   end
 
   def csv_loader(data_path)
-    @csv = CSV.open data_path, headers:true, header_converters: :symbol
+    csv = CSV.open data_path, headers:true, header_converters: :symbol
+    invoice_parser(csv)
   end
 
-  def invoice_parser
-    @all = @csv.map do |row|
+  def invoice_parser(csv)
+    @all = csv.map do |row|
       Invoice.new(row, self)
     end
   end
