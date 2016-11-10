@@ -67,24 +67,24 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal true, se.invoices.find_all_items_by_invoice_id(3).is_a?(Array)
   end
 
-  # def test_transactions_by_invoice_id
-  #   assert_instance_of Transaction, @se.invoices.find_transactions_by_invoice_id(19).last
-  # end
-  #
-  # def test_it_returns_a_customer
-  #   assert_instance_of Customer, @se.invoices.find_customer_by_invoice_id(2)
-  # end
-  #
-  # def test_it_finds_invoices_by_customer_id
-  #   assert_instance_of Invoice, @se.invoices.find_all_invoices_by_customer_id(1).last
-  # end
-  #
-  # def test_finds_invoice_items_by_invoice_id
-  #   assert_instance_of InvoiceItem, @se.invoices.find_invoice_items_by_invoice_id(1).first
-  # end
-  #
-  # def test_it_gets_all_invoice_items_by_date
-  #   assert_instance_of Invoice, @se.invoices.find_all_by_date(Time.parse("2012-11-23")).first
-  #   assert_instance_of Invoice, @se.invoices.find_all_by_date(Time.parse("2012-11-23")).last
-  # end
+  def test_transactions_by_invoice_id
+    assert_equal Transaction, se.invoices.find_all_transactions_by_invoice_id(46).last.class
+  end
+
+  def test_it_returns_a_customer
+    assert_equal Customer, se.invoices.find_all_customers_by_invoice_id(2).class
+  end
+
+  def test_it_finds_invoices_by_customer_id
+    assert_equal Invoice, se.invoices.find_all_by_customer_id(2).last.class
+  end
+
+  def test_finds_invoice_items_by_invoice_id
+    assert_equal InvoiceItem, se.invoices.find_all_invoice_items_by_invoice_id(1).first.class
+  end
+
+  def test_it_gets_all_invoice_items_by_date
+    assert_equal Invoice, se.invoices.find_all_by_date(Time.parse("2012-11-23")).first.class
+    assert_equal Invoice, se.invoices.find_all_by_date(Time.parse("2012-11-23")).last.class
+  end
 end
