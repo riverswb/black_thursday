@@ -13,6 +13,10 @@ class SalesAnalystTest < Minitest::Test
       :invoice_items => "./data/small/invoices.csv",
       :transactions => "./data/small/transactions.csv",
       :customers => "./data/small/customers.csv"})
+
+    # @tr = TransactionRepository.new({
+    #   :transactions => "./data/small/transactions.csv"})
+
   end
 
   def test_sales_analyst_exists
@@ -106,12 +110,16 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_best_item_for_merchant
-    skip
+    # skip
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv"})
+      :invoices  => "./data/invoices.csv",
+      :invoice_items => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"})
     sa = SalesAnalyst.new(se)
-    assert_equal "", sa.best_item_for_merchant(12334189)
+    sa.most_sold_item_for_merchant(12337105)
+    assert_equal "", sa.most_max("")
   end
 end
