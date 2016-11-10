@@ -92,12 +92,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    waiting_merchants = all_merchants.find_all do |merchant|
+    all_merchants.find_all do |merchant|
        merchant.invoices.any? do |invoice|
           invoice.pending?
       end
     end
-    waiting_merchants
   end
 
   def merchants_ranked_by_revenue
@@ -228,7 +227,8 @@ class SalesAnalyst
 
   def items_per_merchant
     se.merchants.all.map do |merchant|
-      merchants_items[merchant.id] = se.items.find_all_by_merchant_id(merchant.id)
+      items = se.items.find_all_by_merchant_id(merchant.id)
+      merchants_items[merchant.id] = items
     end
   end
 
