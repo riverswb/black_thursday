@@ -118,4 +118,18 @@ class SalesAnalystTest < Minitest::Test
 
     assert_instance_of Item, sa.most_max(reduced).first
   end
+
+  def test_revenue_by_merchant_returns_merchants_revenue
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv",
+      :invoice_items => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"})
+    sa = SalesAnalyst.new(se)
+
+    assert_equal "", sa.revenue_by_merchant(12334123)
+  end
 end

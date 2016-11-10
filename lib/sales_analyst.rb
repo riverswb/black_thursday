@@ -119,11 +119,6 @@ class SalesAnalyst
     end
   end
 
-  def revenue_by_merchant(id)
-    merchant = se.find_merchant_by_id(id)
-    merchant.revenue
-  end
-
   def merchants_with_only_one_item
     se.merchants.all.select do |merchant|
       merchant_items = se.items.find_all_by_merchant_id(merchant.id)
