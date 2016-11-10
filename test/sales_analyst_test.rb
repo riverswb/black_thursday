@@ -141,4 +141,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2.41, sa.standard_deviation_of_invoices_per_day
   end
 
+  def test_top_days_by_invoice_count
+    sa = SalesAnalyst.new(se)
+
+    assert_equal ["Friday"], sa.top_days_by_invoice_count
+  end
+
 end
