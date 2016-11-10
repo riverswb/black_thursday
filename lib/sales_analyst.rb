@@ -26,20 +26,40 @@ class SalesAnalyst
     our_merchant = all_merchants.find do |merchant|
       merchant.id.to_i == merchant_id
     end
-    paid_invoices = our_merchant.invoices.find_all do |invoice|
+    paid_invoices(our_merchant)
+  end
+
+  def paid_invoices(our_merchant)
+    found = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
     end
-    paid_invoice_items = paid_invoices.flat_map do |invoice|
+    paid_invoice_items(found)
+  end
+
+  def paid_invoice_items(paid_invoices)
+    found = paid_invoices.flat_map do |invoice|
       invoice.invoice_items
     end
+    best_items(found)
+  end
+
+  def best_items(paid_invoice_items)
     items = paid_invoice_items.group_by do |item|
       item.item_id.to_i
-    end
+      end
+    reduced(items)
+  end
+
+  def reduced(items)
     reduced = Hash.new{0}
     items.each do |key, value|
       reduced[key] =
       value.reduce(0){ |total, value| total +=(value.unit_price*value.quantity)}
-    end
+      end
+    maxxed(reduced)
+  end
+
+  def maxxed(reduced)
     max = reduced.values.max
     almost_done = reduced.select do |key,value|
       key if value == max
@@ -117,7 +137,7 @@ class SalesAnalyst
     real_dealers = all_merchants.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
     end
-    top_dealers = real_dealers.last(top_amount).reverse
+    real_dealers.last(top_amount).reverse
   end
 
   def total_revenue_by_date(date_input)
@@ -251,7 +271,6 @@ class SalesAnalyst
 
   def merchants_with_high_item_count
     high_item_merchants_ids.map do |merchant_id|
-
       se.find_merchant_by_id(merchant_id[0])
     end
   end
@@ -288,10 +307,7 @@ class SalesAnalyst
     prices = se.merchants.all.map do |merchant|
       avg_avg_setup(merchant.id)
     end
-    avg_prices = prices.flatten.reduce(0) do |sum,num|
-      sum += num.to_f
-      sum
-    end
+    avg_prices = prices.flatten.reduce(0) {|sum,num| sum += num.to_f}
     (avg_prices / se.merchants.all.count).round(2).to_d
   end
 
