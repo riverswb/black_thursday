@@ -26,17 +26,17 @@ class SalesAnalyst
     our_merchant = all_merchants.find do |merchant|
       merchant.id.to_i == merchant_id
     end
-    paid_invoices(our_merchant)
+    best_paid_invoices(our_merchant)
   end
 
-  def paid_invoices(our_merchant)
+  def best_paid_invoices(our_merchant)
     found = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
     end
-    paid_invoice_items(found)
+    best_paid_invoice_items(found)
   end
 
-  def paid_invoice_items(paid_invoices)
+  def best_paid_invoice_items(paid_invoices)
     found = paid_invoices.flat_map do |invoice|
       invoice.invoice_items
     end
@@ -47,19 +47,19 @@ class SalesAnalyst
     items = paid_invoice_items.group_by do |item|
       item.item_id.to_i
       end
-    reduced(items)
+    best_reduced(items)
   end
 
-  def reduced(items)
+  def best_reduced(items)
     reduced = Hash.new{0}
     items.each do |key, value|
       reduced[key] =
       value.reduce(0){ |total, value| total +=(value.unit_price*value.quantity)}
       end
-    maxxed(reduced)
+    best_max(reduced)
   end
 
-  def maxxed(reduced)
+  def best_max(reduced)
     max = reduced.values.max
     almost_done = reduced.select do |key,value|
       key if value == max
@@ -77,19 +77,51 @@ class SalesAnalyst
     our_merchant = all_merchants.find do |merchant|
       merchant.id.to_i == merchant_id
     end
-    paid_invoices = our_merchant.invoices.find_all do |invoice|
+    paid_invoices(our_merchant)
+  end
+
+  def paid_invoices(our_merchant)
+    found = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
     end
-    paid_invoice_items = paid_invoices.flat_map do |invoice|
+    paid_invoice_items(found)
+  end
+
+  def paid_invoice_items(paid_invoices)
+    found = paid_invoices.flat_map do |invoice|
       invoice.invoice_items
     end
+    most_items(found)
+  end
+
+  def most_items(paid_invoice_items)
     items = paid_invoice_items.group_by do |item|
       item.item_id.to_i
     end
+    most_reduced(items)
+  end
+    # reduced = Hash.new{0}
+    # items.each do |key, value|
+    #   reduced[key] = value.reduce(0){ |total, sumtin| total += sumtin.quantity}
+    # end
+    # most_maxxed(reduced)
+  def most_reduced(items)
     reduced = Hash.new{0}
     items.each do |key, value|
       reduced[key] = value.reduce(0){ |total, sumtin| total += sumtin.quantity}
     end
+    most_maxxed(reduced)
+  end
+    # max = reduced.values.max
+    # almost_done = reduced.select do |key,value|
+    #   key if value == max
+    # end
+    # almost_done.keys.map do |key|
+    #   all_items.find {|item| item.id == key}
+    # end
+  # end
+
+  def most_maxxed(reduced)
     max = reduced.values.max
     almost_done = reduced.select do |key,value|
       key if value == max
@@ -113,7 +145,7 @@ class SalesAnalyst
 
   def merchants_with_pending_invoices
     all_merchants.find_all do |merchant|
-       merchant.invoices.any? do |invoice|
+      merchant.invoices.any? do |invoice|
           invoice.pending?
       end
     end
