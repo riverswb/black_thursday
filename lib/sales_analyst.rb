@@ -81,10 +81,10 @@ class SalesAnalyst
   end
 
   def most_paid_invoices(our_merchant)
-    found = our_merchant.invoices.find_all do |invoice|
+    paid_invoices = our_merchant.invoices.find_all do |invoice|
       invoice.is_paid_in_full?
     end
-    most_paid_invoice_items(found)
+    most_paid_invoice_items(paid_invoices)
   end
 
   def most_paid_invoice_items(paid_invoices)

@@ -3,8 +3,8 @@ require_relative '../lib/sales_analyst'
 require_relative '../lib/sales_engine'
 
 class SalesAnalystTest < Minitest::Test
-  attr_reader :se,
-              :sa
+  attr_reader :se
+
   def setup
     @se = SalesEngine.from_csv({
       :items     => "./data/small/items.csv",
@@ -13,10 +13,6 @@ class SalesAnalystTest < Minitest::Test
       :invoice_items => "./data/small/invoices.csv",
       :transactions => "./data/small/transactions.csv",
       :customers => "./data/small/customers.csv"})
-
-    # @tr = TransactionRepository.new({
-    #   :transactions => "./data/small/transactions.csv"})
-
   end
 
   def test_sales_analyst_exists
@@ -109,8 +105,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, golden_items_collection.count
   end
 
-  def test_best_item_for_merchant
-    # skip
+  def test_most_sold_item_for_merchant_most_max
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -119,7 +114,8 @@ class SalesAnalystTest < Minitest::Test
       :transactions => "./data/transactions.csv",
       :customers => "./data/customers.csv"})
     sa = SalesAnalyst.new(se)
-    sa.most_sold_item_for_merchant(12337105)
-    assert_equal "", sa.most_max("")
+    reduced = {263524984=>10 }
+
+    assert_instance_of Item, sa.most_max(reduced).first
   end
 end
