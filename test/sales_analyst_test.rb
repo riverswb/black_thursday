@@ -104,4 +104,14 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Item, golden_items_collection[0]
     assert_equal 5, golden_items_collection.count
   end
+
+  def test_best_item_for_merchant
+    skip
+    se = SalesEngine.from_csv({
+      :items     => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices  => "./data/invoices.csv"})
+    sa = SalesAnalyst.new(se)
+    assert_equal "", sa.best_item_for_merchant(12334189)
+  end
 end

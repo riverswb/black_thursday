@@ -23,6 +23,7 @@ class SalesAnalyst
   end
 
   def best_item_for_merchant(merchant_id)
+    # binding.pry
     our_merchant = all_merchants.find do |merchant|
       merchant.id.to_i == merchant_id
     end
