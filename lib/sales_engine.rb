@@ -1,5 +1,4 @@
 require_relative '../lib/item_repository'
-require_relative '../lib/file_loader'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/invoice_item_repository'
 require_relative '../lib/transaction_repository'
