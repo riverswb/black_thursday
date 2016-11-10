@@ -111,33 +111,6 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of Array, expected
   end
 
-  def test_best_item_for_merchant
-    skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"})
-    sa = SalesAnalyst.new(se)
-
-    assert_instance_of Item, sa.best_item_for_merchant(12334160)
-  end
-
-  def test_revenue_by_merchant
-skip
-    se = SalesEngine.from_csv({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoices.csv",
-      :transactions => "./data/transactions.csv",
-      :customers => "./data/customers.csv"})
-    sa = SalesAnalyst.new(se)
-    assert_equal 50, sa.revenue_by_merchant(12334141)
-  end
-
   def test_returns_merchants_with_only_one_item
     sa = SalesAnalyst.new(se)
     assert_instance_of Array, sa.merchants_with_only_one_item
@@ -155,4 +128,17 @@ skip
 
     assert_equal "Shopin1901", sa.merchants_ranked_by_revenue.first.name
   end
+
+  def test_average_invoices_per_day
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 4.86, sa.average_invoices_per_day.round(2)
+  end
+
+  def test_standard_deviation_of_invoices_per_day
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 2.41, sa.standard_deviation_of_invoices_per_day
+  end
+
 end
