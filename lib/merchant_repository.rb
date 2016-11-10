@@ -15,7 +15,6 @@ class MerchantRepository
     @merchants = []
     @parent = parent
     csv_loader(csv_file)
-    merchant_parser
   end
 
   def all
@@ -23,18 +22,19 @@ class MerchantRepository
   end
 
   def csv_loader(csv_file)
-    @csv = CSV.open csv_file, headers:true, header_converters: :symbol
+    csv = CSV.open csv_file, headers:true, header_converters: :symbol
+    merchant_parser(csv)
   end
 
-  def merchant_parser
-    @csv.each do |row|
+  def merchant_parser(csv)
+    csv.each do |row|
       @merchants << Merchant.new(row, self)
     end
   end
 
   def find_by_id(id_input)
     merchants.find do |instance|
-      instance.id.to_i == id_input.to_i
+      instance.id == id_input
     end
   end
 
